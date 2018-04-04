@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AppFullLoader></AppFullLoader>
+    <!--<AppFullLoader></AppFullLoader>-->
     <router-view/>
   </div>
 </template>
