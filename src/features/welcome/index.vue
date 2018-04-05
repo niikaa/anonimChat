@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="welcome-pg">
 
   </div>
 </template>

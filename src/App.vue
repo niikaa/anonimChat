@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style>
+@import '../static/grid.css';
 @import '../static/style.css';
 </style>
 
