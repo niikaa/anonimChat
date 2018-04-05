@@ -38,6 +38,13 @@ h4 {
   letter-spacing: 0.1px;
 }
 
+.ann-h3 {
+  color: #ecf0f1;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
 .ann-container {
   display: block;
   padding: 80px 140px;
@@ -67,12 +74,82 @@ h4 {
   border-radius: 20px;
 }
 
+.separated-badge {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.ann-separated-line {
+  margin-top: 20px;
+}
+
 /*##############################Welcome-pg##############################*/
 
 .welcome-pg {
   height: 100vh;
   background: linear-gradient(#3498db69, #3498db69, #2980b9),
   url("https://wallpaperscraft.com/image/laptop_apple_canon_table_73452_1920x1080.jpg") no-repeat center;
+}
+
+.ann-card {
+  height: calc(50vh - 28px);
+  position: relative;
+  cursor: pointer;
+}
+.red-card {
+  background: #e74c3c;
+}
+.red-card:hover {
+  background: linear-gradient(#e74c3cb3, #e74c3cb3, #e74c3cb3),
+  url("http://1103027598.rsc.cdn77.org/wp-content/uploads/2016/02/apple-products-1.jpg")
+  no-repeat center;
+}
+.text-red {
+  color: #e74c3c;
+}
+.blue-card {
+  background: #3498db;
+}
+.blue-card:hover {
+  background: linear-gradient(#3498dbb3, #3498dbb3, #3498dbb3),
+  url("https://wallpaperscraft.com/image/laptop_apple_canon_table_73452_1920x1080.jpg")
+  no-repeat center;
+}
+.text-blue {
+  color: #3498db;
+}
+.green-card {
+  background: #1abc9c;
+}
+.green-card:hover {
+  background: linear-gradient(#1abc9cb3, #1abc9cb3, #1abc9cb3),
+  url("http://www.hdnicewallpapers.com/Walls/Big/Computers/Laptop_on_Desk_HD_Wallpaper.jpg")
+  no-repeat center;
+}
+.text-green {
+  color: #1abc9c;
+}
+.yellow-card {
+  background: #f1c40f;
+}
+.orange-card {
+  background: #e67e22;
+}
+.violet-card {
+  background: #9b59b6;
+}
+.gray-card {
+  background: #34495e;
+}
+.verticaly-cnt {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 }
 
 /*##############################Loader-full##############################*/

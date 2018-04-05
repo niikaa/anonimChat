@@ -18,6 +18,7 @@ export default {
 
 <style>
 @import '../static/grid.css';
+@import 'https://unpkg.com/vuetify/dist/vuetify.min.css';
 @import '../static/style.css';
 </style>
 
