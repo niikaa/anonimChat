@@ -18,7 +18,7 @@
               </h4>
               <div class="ann-centered">
                 <div class="text-xs-center">
-                  <v-btn round large color="light-blue darken-1">Log in</v-btn>
+                  <v-btn round large color="light-blue darken-1" @click="loginWithFacebook()">Log in</v-btn>
                   <!--<v-btn round large color="light-blue darken-1">Log out</v-btn>-->
                 </div>
               </div>
@@ -31,7 +31,8 @@
 </template>
 
 <script>
+import AuthMixin from '../mixins/authenticate'
 export default {
-
+  mixins:[AuthMixin],
 }
 </script>

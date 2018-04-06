@@ -24,14 +24,15 @@ const mutations = {
 
 const actions = {
   setFacebookResponse:({commit}, payload) => {
-    commit('setFacebookResponse', response)
+    commit('setFacebookResponse', payload)
   },
   setFacebookObject:({commit}, payload) => {
-    commit('setFacebookObject', response)
+    commit('setFacebookObject', payload)
   },
 }
 
 export default {
   state,
+  actions,
   mutations,
 }
