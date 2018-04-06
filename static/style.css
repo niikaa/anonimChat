@@ -83,12 +83,102 @@ h4 {
   margin-top: 20px;
 }
 
+.ann-h1 {
+  color: #ecf0f1;
+  font-size: 68px;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  margin-top: 10px;
+}
+.ann-under-h1 {
+  color: #ecf0f1;
+  font-size: 25px;
+  letter-spacing: 0.1px;
+}
+
+@media only screen and (max-width: 1264px) {
+  .ann-h1 {
+    font-size: 51px;
+    letter-spacing: 1px;
+    margin-bottom: 45px;
+  }
+  .ann-under-h1 {
+    font-size: 22px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.ann-h4 {
+  color: #3498db;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 1264px) {
+  .ann-h4 {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .ann-h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .ann-under-h1 {
+    font-size: 15px;
+    letter-spacing: 0.1px;
+  }
+  .ann-h4 {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+}
+
 /*##############################Welcome-pg##############################*/
 
-.welcome-pg {
+.home-pg {
   height: 100vh;
   background: linear-gradient(#3498db69, #3498db69, #2980b9),
   url("https://wallpaperscraft.com/image/laptop_apple_canon_table_73452_1920x1080.jpg") no-repeat center;
+}
+
+.auth-card {
+    height: auto;
+    margin-left: 100px;
+    background: #ecf0f1 !important;
+    padding-top: 95px;
+    padding-bottom: 95px
+}
+
+@media only screen and (max-width: 1264px) {
+  .auth-card {
+      height: auto;
+      margin-left: 100px;
+      background: #ecf0f1 !important;
+      padding-top: 50px;
+      padding-bottom: 50px
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  .auth-card {
+      margin-top: 40px;
+      height: auto;
+      margin-left: 0px;
+      width: 100%;
+      background: #ecf0f1 !important;
+      padding-top: 30px;
+      padding-bottom: 30px
+  }
 }
 
 .ann-card {
@@ -150,6 +240,16 @@ h4 {
   -moz-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   -o-transform: translateY(-50%);
+}
+
+.main-pad {
+  padding-top: 140px;
+}
+
+@media only screen and (max-width: 960px) {
+  .main-pad {
+    padding-top: 0px;
+  }
 }
 
 /*##############################Loader-full##############################*/
