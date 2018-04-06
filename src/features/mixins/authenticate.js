@@ -26,6 +26,13 @@ export default {
         }
       },{ scope: 'email,user_friends' });
     },
+    logOutWithFacebook(){
+      this.Authentication.facebookObject.logout((response) => {
+        console.log("modi");
+        // self.$store.commit('removeFacebookResponse',null);
+        // self.$router.push({name:'Authenticate'})
+      });
+    }
   },
   beforeMount () {
     window.fbAsyncInit = () => {
