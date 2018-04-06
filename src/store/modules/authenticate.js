@@ -19,6 +19,10 @@ const mutations = {
   },
   setFacebookObject(state,facebook){
     state.facebookObject = facebook;
+  },
+  removeFacebookResponse(state, response){
+    state.isLoggedIn = false
+    state.userResponse = response
   }
 }
 
@@ -28,6 +32,9 @@ const actions = {
   },
   setFacebookObject:({commit}, payload) => {
     commit('setFacebookObject', payload)
+  },
+  removeFacebookResponse:({commit}, payload) => {
+    commit('removeFacebookResponse', payload)
   },
 }
 

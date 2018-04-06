@@ -12,7 +12,8 @@ export default {
   methods: {
     ...mapActions([
       'setFacebookObject',
-      'setFacebookResponse'
+      'setFacebookResponse',
+      'removeFacebookResponse'
     ]),
     loginWithFacebook(){
       this.Authentication.facebookObject.login((response) => {
@@ -28,9 +29,8 @@ export default {
     },
     logOutWithFacebook(){
       this.Authentication.facebookObject.logout((response) => {
-        console.log("modi");
-        // self.$store.commit('removeFacebookResponse',null);
-        // self.$router.push({name:'Welcome'})
+        this.removeFacebookResponse(null)
+        this.$router.push({name:'Welcome'})
       });
     }
   },
