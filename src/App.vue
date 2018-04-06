@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppToolbar></AppToolbar>
-    <!--<AppFullLoader></AppFullLoader>-->
+    <AppFullLoader></AppFullLoader>
     <router-view/>
   </div>
 </template>

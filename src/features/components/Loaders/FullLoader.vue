@@ -1,5 +1,5 @@
 <template>
-  <div class="full-loader-container">
+  <div v-if="Authentication.isFetching" class="full-loader-container">
     <div class="vert-mid">
       <div class="lds-css-full">
         <div class="lds-facebook vert-mid filled">
@@ -13,7 +13,10 @@
 </template>
 
 <script>
-  export default {
-
-  }
+import { mapState } from 'vuex'
+export default {
+  computed: mapState ([
+    'Authentication'
+  ])
+}
 </script>

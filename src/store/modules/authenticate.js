@@ -6,6 +6,7 @@ const state = {
   isLoggedIn: false,
   userResponse:null,
   friends_ids: null,
+  isFetching: true,
 }
 
 const mutations = {
@@ -23,7 +24,10 @@ const mutations = {
   removeFacebookResponse(state, response){
     state.isLoggedIn = false
     state.userResponse = response
-  }
+  },
+  changeFetchStatus(state, response){
+    state.isFetching = response
+  },
 }
 
 const actions = {
@@ -35,6 +39,9 @@ const actions = {
   },
   removeFacebookResponse:({commit}, payload) => {
     commit('removeFacebookResponse', payload)
+  },
+  changeFetchStatus:({commit}, payload) => {
+    commit('changeFetchStatus', payload)
   },
 }
 

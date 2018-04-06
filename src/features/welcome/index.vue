@@ -18,8 +18,8 @@
               </h4>
               <div class="ann-centered">
                 <div class="text-xs-center">
-                  <v-btn round large color="light-blue darken-1" @click="loginWithFacebook()">Log in</v-btn>
-                  <!--<v-btn round large color="light-blue darken-1" @click="logOutWithFacebook()">Log out</v-btn>-->
+                  <v-btn v-if="!Authentication.isLoggedIn" round large color="light-blue darken-1" @click="loginWithFacebook()">Log in</v-btn>
+                  <v-btn v-else round large color="light-blue darken-1" @click="logOutWithFacebook()">Log out</v-btn>
                 </div>
               </div>
             </v-card-text>
@@ -32,7 +32,11 @@
 
 <script>
 import AuthMixin from '../mixins/authenticate'
+import { mapState } from 'vuex'
 export default {
   mixins:[AuthMixin],
+  computed: mapState ([
+    'Authentication'
+  ])
 }
 </script>

@@ -13,7 +13,8 @@ export default {
     ...mapActions([
       'setFacebookObject',
       'setFacebookResponse',
-      'removeFacebookResponse'
+      'removeFacebookResponse',
+      'changeFetchStatus',
     ]),
     loginWithFacebook(){
       this.Authentication.facebookObject.login((response) => {
@@ -46,16 +47,18 @@ export default {
       this.Authentication.facebookObject.AppEvents.logPageView();
       if (this.Authentication) {
         this.Authentication.facebookObject.getLoginStatus((response) => {
-          let lastIndexUri =window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+          let lastIndexUri = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
           if (response.status == "connected") {
             this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends,picture',(response) => {
               this.setFacebookResponse(response);
+              this.changeFetchStatus(false)
             });
             if(lastIndexUri == ""){
               this.$router.push({name:'Home'});
               return;
             }
           } else {
+            this.changeFetchStatus(false)
             if(lastIndexUri != ""){
               this.$router.push({name:'Welcome'})
             } else {
