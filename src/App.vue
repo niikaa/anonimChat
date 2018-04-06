@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AppToolbar></AppToolbar>
     <!--<AppFullLoader></AppFullLoader>-->
     <router-view/>
   </div>
@@ -7,11 +8,13 @@
 
 <script>
 import FullLoader from './features/components/Loaders/FullLoader'
+import Toolbar from './features/components/Toolbar'
 
 export default {
   name: 'App',
   components: {
-    AppFullLoader: FullLoader
+    AppFullLoader: FullLoader,
+    AppToolbar: Toolbar,
   }
 }
 </script>
