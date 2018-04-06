@@ -30,36 +30,40 @@ export default {
       this.Authentication.facebookObject.logout((response) => {
         console.log("modi");
         // self.$store.commit('removeFacebookResponse',null);
-        // self.$router.push({name:'Authenticate'})
+        // self.$router.push({name:'Welcome'})
       });
     }
   },
   beforeMount () {
     window.fbAsyncInit = () => {
       this.setFacebookObject(FB);
-      this.$store.state.Authentication.facebookObject.init({
+      this.Authentication.facebookObject.init({
         appId      : '170490913717292',
         cookie     : true,
         xfbml      : true,
         version    : 'v2.11',
       });
       this.Authentication.facebookObject.AppEvents.logPageView();
-      this.Authentication.facebookObject.getLoginStatus(function(response) {
-        let lastIndexUri =window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        if (response.status == "connected") {
-          this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends,picture',function(response) {
-            this.setFacebookResponse(response);
-          });
-          if(lastIndexUri == ""){
-            this.$router.push({name:'MainPage'});
-            return;
+      if (this.Authentication) {
+        this.Authentication.facebookObject.getLoginStatus((response) => {
+          let lastIndexUri =window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+          if (response.status == "connected") {
+            this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends,picture',(response) => {
+              this.setFacebookResponse(response);
+            });
+            if(lastIndexUri == ""){
+              this.$router.push({name:'Home'});
+              return;
+            }
+          } else {
+            if(lastIndexUri != ""){
+              this.$router.push({name:'Welcome'})
+            } else {
+              this.$router.push({name:'Welcome'})
+            }
           }
-        } else {
-          if(lastIndexUri != ""){
-            this.$router.push({name:'Welcome'})
-          }
-        }
-      },{ scope: 'email,user_friends' });
+        },{ scope: 'email,user_friends' });
+      }
     };
     (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];
