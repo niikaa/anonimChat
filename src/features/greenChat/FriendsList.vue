@@ -14,13 +14,35 @@
 
 <script>
 import Friend from '../components/Friend'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     AppFriend: Friend
   },
-  computed: mapState ([
-    'Authentication'
-  ])
+  computed: {
+    ...mapState ([
+      'Authentication'
+    ]),
+    isFetching() {
+      return this.Authentication.isFetching
+    }
+  },
+  methods: {
+    ...mapActions([
+      'setActiveFriends'
+    ]),
+  },
+  mounted () {
+    setInterval(() => {
+      this.setActiveFriends(this.Authentication.friends_ids)
+    }, 2500)
+  },
+  watch: {
+    isFetching(oldVal, newVal) {
+      if (newVal) {
+        this.setActiveFriends(this.Authentication.friends_ids)
+      }
+    }
+  }
 }
 </script>

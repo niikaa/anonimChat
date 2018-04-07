@@ -52,6 +52,13 @@ router.post('/remove_connection', (req, res)=>{
   // res.send({...resp})
 })
 
+router.get('/active_friends', (req, res)=>{
+  const friends = req.query.friends
+  SocketConnection.find({fb_id: {$in: friends}}).then(activeFriends => {
+    res.send({status: 200, data: activeFriends})
+  })
+})
+
 module.exports = {
   router,
   setConnection,
