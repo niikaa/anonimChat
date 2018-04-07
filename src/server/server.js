@@ -11,8 +11,19 @@ mongoose.connect('mongodb://localhost:27017/anonimChat').then((db)=>{
     error=>console.log(error)
 );
 
-io.on('connection', function(socket){
+const connections = require('./controllers/connections');
 
+io.on('connection', function(socket){
+  let socket_id = socket.id
+  socket.on('disconnect', () => {
+    connections.removeSocketConnection({socket_id: socket_id})
+  })
+  socket.on('SET_CONNECTION', (data) => {
+    connections.setConnection({...data, socket_id: socket_id})
+  })
+  socket.on('REMOVE_CONNECTION', (data) => {
+    connections.removeConnection({...data})
+  })
 })
 
 http.listen(3000, () => {
@@ -31,3 +42,5 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+
+app.use('/connections', connections.router);

@@ -1,4 +1,5 @@
 import { mapActions, mapState } from 'vuex'
+import socket from '../../socket'
 
 export default {
   data() {
@@ -19,9 +20,10 @@ export default {
     loginWithFacebook(){
       this.Authentication.facebookObject.login((response) => {
         if (response.authResponse) {
-          this.$store.state.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends',(response) => {
+          this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends',(response) => {
             this.setFacebookResponse(response);
             this.$router.push({name: 'Home'});
+            socket.emit('SET_CONNECTION', {fb_id: response.id})
           });
         } else {
 
@@ -30,6 +32,7 @@ export default {
     },
     logOutWithFacebook(){
       this.Authentication.facebookObject.logout((response) => {
+        socket.emit('REMOVE_CONNECTION', {fb_id: this.Authentication.userResponse.id})
         this.removeFacebookResponse(null)
         this.$router.push({name:'Welcome'})
       });
@@ -52,6 +55,7 @@ export default {
             this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends,picture',(response) => {
               this.setFacebookResponse(response);
               this.changeFetchStatus(false)
+              socket.emit('SET_CONNECTION', {fb_id: response.id})
             });
             if(lastIndexUri == ""){
               this.$router.push({name:'Home'});
