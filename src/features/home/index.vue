@@ -18,8 +18,8 @@
             </v-badge>
           </div>
           <div class="text-xs-center ann-separated-line">
-            <v-btn v-on:click = "$router.push({name:'GreenChat'})" round large color="grey lighten-4">
-              <span class="text-red"> View </span>
+            <v-btn v-on:click = "redirect('GreenChat')" round large color="grey lighten-4">
+              <span class="text-green"> View </span>
             </v-btn>
           </div>
         </div>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="text-xs-center ann-separated-line">
-            <v-btn v-on:click = "$router.push({name:'RedChat'})" round large color="grey lighten-4">
+            <v-btn round large color="grey lighten-4">
               <span class="text-red"> View </span>
             </v-btn>
           </div>
@@ -100,7 +100,11 @@
 
 <script>
   export default {
-
+    methods: {
+      redirect(name) {
+        this.$router.push({name: name})
+      }
+    }
   }
 </script>
 
