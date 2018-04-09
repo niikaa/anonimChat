@@ -40,7 +40,7 @@
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered overfl-hddn">
-          <v-btn color="blue light-txt-bold">
+          <v-btn color="blue light-txt-bold" @click="handleStart()">
             <v-icon left>chat</v-icon>
             Start
           </v-btn>
@@ -54,6 +54,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
+import { createGreenConversation } from '../../server/constants'
 export default {
   data() {
     return {
@@ -70,7 +71,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'GreenChat'
+      'GreenChat',
+      'Authentication'
     ]),
     isFetching() {
       return this.GreenChat.card_isFetcing
@@ -83,6 +85,17 @@ export default {
     ]),
     handleClose() {
       this.GRRemoveActiveFriend()
+    },
+    handleStart() {
+      const data = {
+        chat_type_initiarot: 'green',
+        initiarot_id: this.Authentication.userResponse.id,
+        chat_type_target: 'green',
+        target_id: this.GreenChat.active_friend.id
+      }
+      this.$http.post(createGreenConversation, {data}).then(response => {
+        console.log(response)
+      })
     }
   },
   components: {

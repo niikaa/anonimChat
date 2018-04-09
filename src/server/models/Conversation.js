@@ -1,0 +1,34 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const Conversation = new Schema({
+  chat_type_initiarot: {
+    type: String,
+  },
+  initiarot_id: {
+    type: String,
+  },
+  chat_type_target: {
+    type: String,
+  },
+  target_id: {
+    type: String,
+  },
+  date: {
+    type : Date,
+    default: Date.now
+  },
+  messages: [{
+    sender_id: {
+      type: String
+    },
+    chat_message: {
+      type: String
+    },
+    date: {
+      type: Date
+    },
+  }]
+})
+
+module.exports = mongoose.model('conversations', Conversation);
