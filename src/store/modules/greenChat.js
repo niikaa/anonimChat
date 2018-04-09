@@ -1,19 +1,33 @@
 import Vue from 'vue'
 
 const state = {
-  active_friend_id: null,
-
+  active_friend: null,
+  card_isFetcing: true,
 }
 
 const mutations =  {
-  GRSetActiveFriendId(state, active_friend_id){
-    state.active_friend_id = active_friend_id;
+  GRSetActiveFriend(state, active_friend){
+    state.card_isFetcing = true
+    state.active_friend = active_friend
+  },
+  GRRemoveActiveFriend(state, payload) {
+    state.card_isFetcing = true
+    state.active_friend = null
+  },
+  GRChangeCardFetchStatus(state, payload) {
+    state.card_isFetcing = payload
   }
 }
 
 const actions = {
-  GRSetActiveFriendId:({commit}, payload) => {
-    commit('GRSetActiveFriendId', payload)
+  GRSetActiveFriend:({commit}, payload) => {
+    commit('GRSetActiveFriend', payload)
+  },
+  GRRemoveActiveFriend:({commit}, payload) => {
+    commit('GRRemoveActiveFriend', payload)
+  },
+  GRChangeCardFetchStatus:({commit}, payload) => {
+    commit('GRChangeCardFetchStatus', payload)
   }
 }
 

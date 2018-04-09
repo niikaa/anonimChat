@@ -19,6 +19,13 @@ h4 {
 }
 
 /*##############################Usefull-classes##############################*/
+.nn-md-divider {
+  display: block;
+  height: 1px;
+  background: transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .nn-margin {
   margin: 0px !important;
 }
@@ -397,7 +404,7 @@ h4 {
     -webkit-animation: lds-facebook_3 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
     animation: lds-facebook_3 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
-/*##############################CHATS##############################*/
+/*##############################SCROLLBAR##############################*/
   ::-webkit-scrollbar-track {
     background-color: #F5F5F5 !important;
   }
@@ -556,5 +563,39 @@ h4 {
     }
     .fixed-height-scroll {
       overflow-x: hidden;
+    }
+  }
+  /*##############################ACTIVE-FRIEND-CARD##############################*/
+  .fr-card-avatar {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .overfl-hddn {
+    overflow: hidden !important;
+  }
+  .ch-card-description {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    padding: 0 20%;
+    color: #403b35;
+  }
+  .light-txt-bold {
+    color: white !important;
+    font-weight: bold !important;
+  }
+
+  @media only screen and (max-width: 475px) {
+    .fr-card-avatar {
+      width: 150px !important;
+      height: 150px !important;
+    }
+    h4 {
+      font-size: 28px;
+    }
+    .ch-card-description {
+      padding: 0 5%;
+      font-size: 16px;
     }
   }

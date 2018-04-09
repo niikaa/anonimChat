@@ -52,10 +52,10 @@ export default {
    },
    methods: {
      ...mapActions([
-        'GRSetActiveFriendId',
+        'GRSetActiveFriend',
       ]),
      handleClick() {
-      this.GRSetActiveFriendId(this.data.id)
+      this.GRSetActiveFriend(this.data)
      }
    }
 }
