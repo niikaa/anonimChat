@@ -3,8 +3,8 @@
     <v-list subheader>
       <v-subheader class="dark-text">Friends</v-subheader>
         <v-divider class="light-background "></v-divider>
-        <div class="fixed-height-scroll" v-if="Authentication.userResponse">
-          <template v-for="(item, index) in Authentication.userResponse.friends.data">
+        <div class="fixed-height-scroll" v-if="Authentication.friends_obj">
+          <template v-for="(item, index) in Authentication.friends_obj">
             <AppFriend :type="'green'" :data="item" :key="index"></AppFriend>
           </template>
         </div>

@@ -16,11 +16,15 @@ export default {
       'setFacebookResponse',
       'removeFacebookResponse',
       'changeFetchStatus',
+      'setFriendsOBJ',
     ]),
     loginWithFacebook(){
       this.Authentication.facebookObject.login((response) => {
         if (response.authResponse) {
           this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends',(response) => {
+            this.Authentication.facebookObject.api('/me/friends?fields=id,email,name,gender,friends,picture',(response) => {
+              this.setFriendsOBJ(response.data);
+            })
             this.setFacebookResponse(response);
             this.$router.push({name: 'Home'});
             socket.emit('SET_CONNECTION', {fb_id: response.id})
@@ -53,6 +57,9 @@ export default {
           let lastIndexUri = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
           if (response.status == "connected") {
             this.Authentication.facebookObject.api('/me?fields=id,email,name,gender,friends,picture',(response) => {
+              this.Authentication.facebookObject.api('/me/friends?fields=id,email,name,gender,friends,picture',(response) => {
+                this.setFriendsOBJ(response.data);
+              })
               this.setFacebookResponse(response);
               this.changeFetchStatus(false)
               socket.emit('SET_CONNECTION', {fb_id: response.id})

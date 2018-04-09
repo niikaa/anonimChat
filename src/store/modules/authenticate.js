@@ -6,6 +6,7 @@ const state = {
   isLoggedIn: false,
   userResponse:null,
   friends_ids: null,
+  friends_obj: null,
   isFetching: true,
 }
 
@@ -28,6 +29,9 @@ const mutations = {
   changeFetchStatus(state, response){
     state.isFetching = response
   },
+  setFriendsOBJ(state, response){
+    state.friends_obj = response
+  },
 }
 
 const actions = {
@@ -42,6 +46,9 @@ const actions = {
   },
   changeFetchStatus:({commit}, payload) => {
     commit('changeFetchStatus', payload)
+  },
+  setFriendsOBJ:({commit}, payload) => {
+    commit('setFriendsOBJ', payload)
   },
 }
 
