@@ -1,5 +1,6 @@
 <template>
   <div v-if="GreenChat.active_friend" class="fill-area">
+    <AppComponentLoader v-if="GreenChat.card_isFetcing"></AppComponentLoader>
     <div class="subheader dark-text">
       Friend info
     </div>
@@ -52,6 +53,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import ComponentLoader from '../components/Loaders/ComponentLoader'
 export default {
   data() {
     return {
@@ -69,7 +71,10 @@ export default {
   computed: {
     ...mapState([
       'GreenChat'
-    ])
+    ]),
+    isFetching() {
+      return this.GreenChat.card_isFetcing
+    }
   },
   methods: {
     ...mapActions([
@@ -78,6 +83,21 @@ export default {
     ]),
     handleClose() {
       this.GRRemoveActiveFriend()
+    }
+  },
+  components: {
+    AppComponentLoader: ComponentLoader
+  },
+  mounted () {
+    setTimeout(() => {
+      this.GRChangeCardFetchStatus(false)
+    },300)
+  },
+  watch: {
+    isFetching(oldVal, newVal) {
+      setTimeout(() => {
+        this.GRChangeCardFetchStatus(false)
+      },300)
     }
   }
 }
