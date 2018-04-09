@@ -1,5 +1,6 @@
 <template>
-  <div class="fill-area">
+  <div v-if="GreenChat.conversation_id" class="fill-area">
+    <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
     <div class="subheader dark-text">
       Friend info
     </div>
@@ -51,8 +52,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import ComponentLoader from '../components/Loaders/ComponentLoader'
 export default {
-
+  computed: {
+    ...mapState([
+      'GreenChat'
+    ])
+  },
+  components: {
+    AppComponentLoader: ComponentLoader
+  }
 }
 </script>
 

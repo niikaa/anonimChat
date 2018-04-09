@@ -2,10 +2,7 @@
   <v-container>
     <AppFriendsList></AppFriendsList>
     <div class="middle-fixed-container">
-      <!--<AppChat></AppChat>-->
-      <!--<div v-if="GreenChat.active_friend_id">
-        asdasd
-      </div>-->
+      <AppChat></AppChat>
       <AppFriendCard></AppFriendCard>
     </div>
   </v-container>
