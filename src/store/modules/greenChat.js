@@ -5,6 +5,7 @@ const state = {
   card_isFetcing: true,
   conversation_id: null,
   conversation_isFetching: true,
+  messages: [],
 }
 
 const mutations =  {

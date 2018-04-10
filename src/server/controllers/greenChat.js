@@ -20,11 +20,19 @@ router.post('/create_new_conversation', (req, res)=>{
 })
 
 router.post('/add_message', (req, res)=>{
+  const conversation_id = req.body.data.conversation_id
   let newMsg = {
     sender_id: req.body.data.sender_id,
     chat_message: req.body.data.chat_message,
     date: req.body.data.date
   }
+  Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, {$push: {messages: newMsg}}, (err, doc) => {
+    if (err) {
+      res.send({status: 500})
+    } else {
+      res.send({status: 200, data: doc})
+    }
+  })
 })
 
 router.get('/get_message', (req, res)=> {

@@ -6,41 +6,29 @@
     </div>
     <hr class="divider light-background">
     <div class="chat-container">
-      <v-layout row>
-        <v-flex xs-12>
-          <div class="chat-my-msg">
-            Gamarjoba
-          </div>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs-12>
-          <div class="chat-partner-msg">
-            Gamarjoba
-          </div>
-        </v-flex>
-      </v-layout><v-layout row>
-        <v-flex xs-12>
-          <div class="chat-my-msg">
-            Gamarjoba
-          </div>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs-12>
-          <div class="chat-partner-msg">
-            Gamarjoba
-          </div>
-        </v-flex>
-      </v-layout>
+        <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
+          <v-flex xs-12>
+            <div class="chat-my-msg">
+              Gamarjoba
+            </div>
+          </v-flex>
+        </v-layout>
+
+        <!--<v-layout row>
+          <v-flex xs-12>
+            <div class="chat-partner-msg">
+              Gamarjoba
+            </div>
+          </v-flex>
+        </v-layout>-->
     </div>
     <div class="bottom-line">
       <form>
         <v-layout row>
           <v-flex xs-12>
-            <input type="text" class="chat-input" >
+            <input v-model="userMessage" type="text" class="chat-input" >
             <div class="overed-rows">
-              <v-btn flat icon color="blue">
+              <v-btn type="button" flat icon color="blue" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
               </v-btn>
             </div>
@@ -54,10 +42,17 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
+import { sendGreenMessage } from '../../server/constants'
 export default {
+  data() {
+    return {
+      userMessage: ''
+    }
+  },
   computed: {
     ...mapState([
-      'GreenChat'
+      'Authentication',
+      'GreenChat',
     ]),
     isFetching() {
       return this.GreenChat.conversation_isFetching
@@ -66,7 +61,26 @@ export default {
   methods: {
     ...mapActions([
       'GRChangeChatFetchStatus'
-    ])
+    ]),
+    handleSendMSG() {
+      const data = {
+        conversation_id: this.GreenChat.conversation_id,
+        sender_id: this.Authentication.userResponse.id,
+        chat_message: this.userMessage,
+        date: Date.now
+      }
+      if (this.userMessage !== '') {
+        this.$http.post(sendGreenMessage, {data}).then(response => {
+          if (response.body.status === 200) {
+
+          } else {
+
+          }
+        }, () => {
+
+        })
+      }
+    }
   },
   components: {
     AppComponentLoader: ComponentLoader
