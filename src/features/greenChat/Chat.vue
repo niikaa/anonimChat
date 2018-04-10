@@ -52,16 +52,36 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 export default {
   computed: {
     ...mapState([
       'GreenChat'
+    ]),
+    isFetching() {
+      return this.GreenChat.conversation_isFetching
+    }
+  },
+  methods: {
+    ...mapActions([
+      'GRChangeChatFetchStatus'
     ])
   },
   components: {
     AppComponentLoader: ComponentLoader
+  },
+  mounted () {
+    setTimeout(() => {
+      this.GRChangeChatFetchStatus(false)
+    },300)
+  },
+  watch: {
+    isFetching(oldVal, newVal) {
+      setTimeout(() => {
+        this.GRChangeChatFetchStatus(false)
+      },300)
+    }
   }
 }
 </script>

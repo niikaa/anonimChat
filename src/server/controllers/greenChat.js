@@ -19,4 +19,16 @@ router.post('/create_new_conversation', (req, res)=>{
   })
 })
 
+router.post('/add_message', (req, res)=>{
+  let newMsg = {
+    sender_id: req.body.data.sender_id,
+    chat_message: req.body.data.chat_message,
+    date: req.body.data.date
+  }
+})
+
+router.get('/get_message', (req, res)=> {
+
+})
+
 module.exports = router

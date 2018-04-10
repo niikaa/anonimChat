@@ -26,7 +26,10 @@ const mutations =  {
     state.active_friend = null
     state.conversation_isFetching = true
     state.conversation_id = payload
-  }
+  },
+  GRChangeChatFetchStatus(state, payload) {
+    state.conversation_isFetching = payload
+  },
 }
 
 const actions = {
@@ -41,6 +44,9 @@ const actions = {
   },
   GRSetConversation:({commit}, payload) => {
     commit('GRSetConversation', payload)
+  },
+  GRChangeChatFetchStatus:({commit}, payload) => {
+    commit('GRChangeChatFetchStatus', payload)
   }
 }
 
