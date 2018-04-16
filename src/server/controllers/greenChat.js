@@ -30,7 +30,7 @@ router.post('/add_message', (req, res)=>{
     if (err) {
       res.send({status: 500})
     } else {
-      res.send({status: 200, data: doc})
+      res.send({status: 200})
     }
   })
 })

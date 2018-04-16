@@ -7,20 +7,17 @@
     <hr class="divider light-background">
     <div class="chat-container">
         <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
-          <v-flex xs-12>
+          <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
             <div class="chat-my-msg">
-              Gamarjoba
+              {{item.chat_message}}
+            </div>
+          </v-flex>
+          <v-flex xs-12 v-else>
+            <div class="chat-partner-msg">
+              {{item.chat_message}}
             </div>
           </v-flex>
         </v-layout>
-
-        <!--<v-layout row>
-          <v-flex xs-12>
-            <div class="chat-partner-msg">
-              Gamarjoba
-            </div>
-          </v-flex>
-        </v-layout>-->
     </div>
     <div class="bottom-line">
       <form>
@@ -60,7 +57,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'GRChangeChatFetchStatus'
+      'GRChangeChatFetchStatus',
+      'GRAddMessage',
     ]),
     handleSendMSG() {
       const data = {
@@ -72,7 +70,8 @@ export default {
       if (this.userMessage !== '') {
         this.$http.post(sendGreenMessage, {data}).then(response => {
           if (response.body.status === 200) {
-
+            this.GRAddMessage(data)
+            this.userMessage = ''
           } else {
 
           }

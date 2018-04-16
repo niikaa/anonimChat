@@ -31,6 +31,9 @@ const mutations =  {
   GRChangeChatFetchStatus(state, payload) {
     state.conversation_isFetching = payload
   },
+  GRAddMessage(state, payload) {
+    state.messages.push(payload)
+  }
 }
 
 const actions = {
@@ -48,6 +51,9 @@ const actions = {
   },
   GRChangeChatFetchStatus:({commit}, payload) => {
     commit('GRChangeChatFetchStatus', payload)
+  },
+  GRAddMessage:({commit}, payload) => {
+    commit('GRAddMessage', payload)
   }
 }
 
