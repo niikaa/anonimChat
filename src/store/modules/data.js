@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { getActiveFriends } from '../../server/constants'
+import { getActiveFriends } from '../../constants'
 import router from '../../router'
 
 const state = {

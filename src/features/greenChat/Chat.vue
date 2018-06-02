@@ -39,7 +39,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendGreenMessage } from '../../server/constants'
+import { sendGreenMessage } from '../../constants'
 export default {
   data() {
     return {

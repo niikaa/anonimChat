@@ -54,7 +54,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { createGreenConversation } from '../../server/constants'
+import { createGreenConversation } from '../../constants'
 export default {
   data() {
     return {
