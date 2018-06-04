@@ -71,10 +71,11 @@ export default {
       if (this.userMessage !== '') {
         this.$http.post(sendGreenMessage, {data}).then(response => {
           if (response.body.status === 200) {
-            this.GRAddMessage(data)
-            socket.emit('SEND_GREEN_CHAT_MESSAGE', data)
+            console.log(response);
+            // this.GRAddMessage(data[]
+            socket.emit('SEND_GREEN_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets })
           } else {
-
+            console.log(response);
           }
         }, () => {
 
@@ -86,8 +87,8 @@ export default {
     AppComponentLoader: ComponentLoader
   },
   mounted () {
-    socket.on('', (data) => {
-
+    socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
+      this.GRAddMessage(data)
     })
     setTimeout(() => {
       this.GRChangeChatFetchStatus(false)

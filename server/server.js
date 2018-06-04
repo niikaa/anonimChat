@@ -26,7 +26,9 @@ io.on('connection', function(socket){
     connections.removeConnection({...data})
   })
   socket.on('SEND_GREEN_CHAT_MESSAGE', (data) => {
-
+    data.targets.forEach(element => {
+        io.to(element.socket_id).emit('GREEN_CHAT_MSG_RECEIVE', data.message)
+    })
   })
 })
 

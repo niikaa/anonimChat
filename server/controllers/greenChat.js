@@ -30,7 +30,16 @@ router.post('/add_message', (req, res)=>{
     if (err) {
       res.send({status: 500})
     } else {
-      res.send({status: 200})
+      const fb_ids = []
+      fb_ids.push(doc.initiator_id)
+      fb_ids.push(doc.target_id)
+      SocketConnection.find( { fb_id: fb_ids }, (error, result) => {
+        if(err){
+          res.send({status: 500})                    
+        }else{
+          res.send({status: 200, message: newMsg, targets: result })          
+        }
+      })
     }
   })
 })
