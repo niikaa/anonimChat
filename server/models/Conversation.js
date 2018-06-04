@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Conversation = new Schema({
-  chat_type_initiarot: {
+  chat_type_initiator: {
     type: String,
   },
-  initiarot_id: {
+  initiator_id: {
     type: String,
   },
   chat_type_target: {

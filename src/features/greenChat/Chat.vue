@@ -40,6 +40,7 @@
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendGreenMessage } from '../../constants'
+import socket from '../../socket'
 export default {
   data() {
     return {
@@ -71,7 +72,7 @@ export default {
         this.$http.post(sendGreenMessage, {data}).then(response => {
           if (response.body.status === 200) {
             this.GRAddMessage(data)
-            this.userMessage = ''
+            socket.emit('SEND_GREEN_CHAT_MESSAGE', data)
           } else {
 
           }
@@ -85,6 +86,9 @@ export default {
     AppComponentLoader: ComponentLoader
   },
   mounted () {
+    socket.on('', (data) => {
+
+    })
     setTimeout(() => {
       this.GRChangeChatFetchStatus(false)
     },300)

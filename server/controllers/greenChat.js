@@ -6,8 +6,8 @@ const Conversation = require('../models/Conversation')
 
 router.post('/create_new_conversation', (req, res)=>{
   let newConv = new Conversation();
-  newConv.chat_type_initiarot = req.body.data.chat_type_initiarot
-  newConv.initiarot_id = req.body.data.initiarot_id
+  newConv.chat_type_initiator = req.body.data.chat_type_initiator
+  newConv.initiator_id = req.body.data.initiator_id
   newConv.chat_type_target = req.body.data.chat_type_target
   newConv.target_id = req.body.data.target_id
   newConv.save().then(savedConv => {

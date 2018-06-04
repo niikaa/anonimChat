@@ -89,8 +89,8 @@ export default {
     },
     handleStart() {
       const data = {
-        chat_type_initiarot: 'green',
-        initiarot_id: this.Authentication.userResponse.id,
+        chat_type_initiator: 'green',
+        initiator_id: this.Authentication.userResponse.id,
         chat_type_target: 'green',
         target_id: this.GreenChat.active_friend.id
       }

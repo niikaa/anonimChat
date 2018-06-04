@@ -25,6 +25,9 @@ io.on('connection', function(socket){
   socket.on('REMOVE_CONNECTION', (data) => {
     connections.removeConnection({...data})
   })
+  socket.on('SEND_GREEN_CHAT_MESSAGE', (data) => {
+
+  })
 })
 
 http.listen(3000, () => {
