@@ -83,6 +83,7 @@ export default {
       'GRRemoveActiveFriend',
       'GRChangeCardFetchStatus',
       'GRSetConversation',
+      'GRClearMessages'
     ]),
     handleClose() {
       this.GRRemoveActiveFriend()
@@ -94,6 +95,7 @@ export default {
         chat_type_target: 'green',
         target_id: this.GreenChat.active_friend.id
       }
+      this.GRClearMessages()
       this.$http.post(createGreenConversation, {data}).then(response => {
         if (response.body.status === 200) {
           this.GRSetConversation(response.body.data._id)

@@ -33,6 +33,9 @@ const mutations =  {
   },
   GRAddMessage(state, payload) {
     state.messages.push(payload)
+  },
+  GRClearMessages(state, payload) {
+    state.messages = []
   }
 }
 
@@ -54,6 +57,9 @@ const actions = {
   },
   GRAddMessage:({commit}, payload) => {
     commit('GRAddMessage', payload)
+  },
+  GRClearMessages:({commit}, payload) => {
+    commit('GRClearMessages', payload)
   }
 }
 

@@ -20,7 +20,7 @@
         </v-layout>
     </div>
     <div class="bottom-line">
-      <form>
+      <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
         <v-layout row>
           <v-flex xs-12>
             <input v-model="userMessage" type="text" class="chat-input" >
@@ -77,8 +77,9 @@ export default {
           } else {
             console.log(response);
           }
+          this.userMessage = ''
         }, () => {
-
+          this.userMessage = ''
         })
       }
     }
