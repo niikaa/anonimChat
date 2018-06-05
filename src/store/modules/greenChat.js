@@ -6,6 +6,7 @@ const state = {
   conversation_id: null,
   conversation_isFetching: true,
   messages: [],
+  conversations: null
 }
 
 const mutations =  {
@@ -36,6 +37,9 @@ const mutations =  {
   },
   GRClearMessages(state, payload) {
     state.messages = []
+  },
+  GRAddConversation(state, payload){
+    state.conversations = payload
   }
 }
 
@@ -60,6 +64,9 @@ const actions = {
   },
   GRClearMessages:({commit}, payload) => {
     commit('GRClearMessages', payload)
+  },
+  GRAddConversation:({commit}, payload) => {
+    commit('GRAddConversation', apyload)
   }
 }
 
