@@ -66,7 +66,7 @@ const actions = {
     commit('GRClearMessages', payload)
   },
   GRAddConversation:({commit}, payload) => {
-    commit('GRAddConversation', apyload)
+    commit('GRAddConversation', payload)
   }
 }
 
