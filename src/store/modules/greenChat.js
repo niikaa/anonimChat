@@ -6,7 +6,7 @@ const state = {
   conversation_id: null,
   conversation_isFetching: true,
   messages: [],
-  conversations: null
+  conversations: [],
 }
 
 const mutations =  {
@@ -39,7 +39,7 @@ const mutations =  {
     state.messages = []
   },
   GRAddConversation(state, payload){
-    state.conversations = payload
+    state.conversations = state.conversations.concat(payload)
   }
 }
 

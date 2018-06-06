@@ -599,6 +599,14 @@ h4 {
   color: #333;
   font-weight: 200 !important;
 }
+.conversation_date {
+  font-size: 12px;
+  color: #424242;
+  opacity: 0.7;
+  padding-left: 24%;
+  padding-bottom: 5%;
+  margin-top: -10px;
+}
 .light-background {
   background: #ecf0f1;
 }

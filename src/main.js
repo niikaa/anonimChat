@@ -4,6 +4,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import VueResource from 'vue-resource'
 import { store } from './store'
+import infiniteScroll from 'vue-infinite-scroll';
 
 Vue.use(VueResource);
 
@@ -18,7 +19,7 @@ Vue.use(Vuetify, {
     warning: '#FFC107'
   }
 })
-
+Vue.use(infiniteScroll)
 Vue.config.productionTip = false
 
 new Vue({

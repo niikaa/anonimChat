@@ -18,7 +18,7 @@
             </v-badge>
           </div>
           <div class="text-xs-center ann-separated-line">
-            <v-btn @click="redirectToChat('green')" round large color="grey lighten-4">
+            <v-btn @click="redirectToGreenChat()" round large color="grey lighten-4">
               <span class="text-green"> View </span>
             </v-btn>
           </div>
@@ -100,10 +100,12 @@
 
 <script>
 
-import ConvMixin from '../mixins/conversations'
-
 export default {
-  mixins:[ConvMixin],
+  methods: {
+    redirectToGreenChat(){
+      this.$router.push({name: 'GreenChat'})
+    }
+  },
 }
 </script>
 
