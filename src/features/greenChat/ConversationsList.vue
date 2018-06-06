@@ -43,7 +43,6 @@ export default {
       'setActiveFriends'
     ]),
     scrollConversations(){
-      console.log("skip", this.skip)
       this.getConversations(this.skip, this.limit)
       this.skip += this.limit
     }
