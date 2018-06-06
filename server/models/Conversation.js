@@ -8,10 +8,16 @@ const Conversation = new Schema({
   initiator_id: {
     type: String,
   },
+  initiator_gender: {
+    type: String,
+  },
   chat_type_target: {
     type: String,
   },
   target_id: {
+    type: String,
+  },
+  target_gender: {
     type: String,
   },
   date: {

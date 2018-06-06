@@ -34,13 +34,13 @@ export default {
     ...mapState ([
       'GreenChat'
     ]),
-    isFetching() {
-      return this.Authentication.isFetching
-    }
+    // isFetching() {
+    //   return this.Authentication.isFetching
+    // }
   },
   methods: {
     ...mapActions([
-      'setActiveFriends'
+      'GRClearConversation'
     ]),
     scrollConversations(){
       this.getConversations(this.skip, this.limit)
@@ -48,14 +48,14 @@ export default {
     }
   },
   beforeMount () {
-    //this.getConversations()
+    this.GRClearConversation();
   },
   watch: {
-    isFetching(oldVal, newVal) {
-      if (newVal) {
-        this.setActiveFriends(this.Authentication.friends_ids)
-      }
-    }
+    // isFetching(oldVal, newVal) {
+    //   if (newVal) {
+    //     this.setActiveFriends(this.Authentication.friends_ids)
+    //   }
+    // }
   }
 }
 </script>

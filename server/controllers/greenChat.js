@@ -8,8 +8,10 @@ router.post('/create_new_conversation', (req, res)=>{
   let newConv = new Conversation();
   newConv.chat_type_initiator = req.body.data.chat_type_initiator
   newConv.initiator_id = req.body.data.initiator_id
+  newConv.initiator_gender = req.body.data.initiator_gender
   newConv.chat_type_target = req.body.data.chat_type_target
   newConv.target_id = req.body.data.target_id
+  newConv.target_gender = req.body.data.target_gender
   newConv.save().then(savedConv => {
     if (savedConv) {
       res.send({status: 200, data: savedConv})

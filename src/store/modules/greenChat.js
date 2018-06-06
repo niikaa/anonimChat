@@ -40,6 +40,9 @@ const mutations =  {
   },
   GRAddConversation(state, payload){
     state.conversations = state.conversations.concat(payload)
+  },
+  GRClearConversation(state, payload){
+    state.conversations = []
   }
 }
 
@@ -67,6 +70,9 @@ const actions = {
   },
   GRAddConversation:({commit}, payload) => {
     commit('GRAddConversation', payload)
+  },
+  GRClearConversation:({commit}, payload) => {
+    commit('GRClearConversation', payload)
   }
 }
 

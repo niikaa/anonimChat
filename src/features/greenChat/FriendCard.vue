@@ -89,11 +89,15 @@ export default {
       this.GRRemoveActiveFriend()
     },
     handleStart() {
+      console.log("me", this.Authentication.userResponse)
+      console.log("is", this.GreenChat.active_friend)
       const data = {
         chat_type_initiator: 'green',
         initiator_id: this.Authentication.userResponse.id,
+        initiator_gender: this.Authentication.userResponse.gender,
         chat_type_target: 'green',
-        target_id: this.GreenChat.active_friend.id
+        target_id: this.GreenChat.active_friend.id,
+        target_gender: this.GreenChat.active_friend.gender
       }
       this.GRClearMessages()
       this.$http.post(createGreenConversation, {data}).then(response => {
