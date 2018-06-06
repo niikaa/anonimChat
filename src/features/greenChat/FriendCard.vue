@@ -89,8 +89,6 @@ export default {
       this.GRRemoveActiveFriend()
     },
     handleStart() {
-      console.log("me", this.Authentication.userResponse)
-      console.log("is", this.GreenChat.active_friend)
       const data = {
         chat_type_initiator: 'green',
         initiator_id: this.Authentication.userResponse.id,

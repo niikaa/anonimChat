@@ -31,10 +31,15 @@ export default {
     }
   },
   computed: mapState ([
-    'Authentication'
+    'Authentication',
+    'GreenChat'
   ]),
   methods: {
+    ...mapActions([
+      'GRSetConversation'
+    ]),
     handleClick(){
+      this.GRSetConversation(this.data._id)
       console.log(this.data)
     }
   },
