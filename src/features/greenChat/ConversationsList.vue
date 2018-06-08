@@ -23,8 +23,6 @@ export default {
   mixins:[ConvMixin],
   data() {
     return {
-      skip: 0,
-      limit: 20
     }
   },
   components: {
@@ -40,16 +38,20 @@ export default {
   },
   methods: {
     ...mapActions([
-      'GRClearConversation'
+      'GRClearConversation',
+      'GRConversationsScrollDown',
+      'GRConversationsScrollInitiate'
     ]),
-    scrollConversations(){
-      this.getConversations(this.skip, this.limit)
-      this.skip += this.limit
+    scrollConversations(){      
+      this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
+      this.GRConversationsScrollDown();
     }
   },
   beforeMount () {
+    this.GRConversationsScrollInitiate()
     this.GRClearConversation();
   },
+
   watch: {
     // isFetching(oldVal, newVal) {
     //   if (newVal) {

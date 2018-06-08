@@ -7,6 +7,9 @@ const state = {
   conversation_isFetching: true,
   messages: [],
   conversations: [],
+  skip: 0,
+  limit: 20,
+  messageSocketConnected: false
 }
 
 const mutations =  {
@@ -35,14 +38,39 @@ const mutations =  {
   GRAddMessage(state, payload) {
     state.messages.push(payload)
   },
+  GRAddConversationMessages(state, payload){
+    state.messages = []
+    state.messages = state.messages.concat(payload)
+  },
   GRClearMessages(state, payload) {
     state.messages = []
   },
-  GRAddConversation(state, payload){
+  GRAddConversations(state, payload){
     state.conversations = state.conversations.concat(payload)
   },
   GRClearConversation(state, payload){
     state.conversations = []
+  },
+  GRConversationsScrollInitiate(state, payload){
+    state.skip = 0;
+    state.limit = 20;
+  },
+  GRConversationsScrollDown(state, payload){
+    state.skip += state.limit
+  },
+  GRConnectMessageSocket(state, payload){
+    state.messageSocketConnected = true;
+  },
+  GRDisconnectMessageSocket(state, payload){
+    state.messageSocketConnected = false;
+  },
+  GRAddConversation(state, payload){
+    for(var i = 0; i < state.conversations.length; i ++){
+      if(state.conversations[i]._id == payload._id){
+        state.conversations.splice(i, 1)
+      }
+    }
+    state.conversations.unshift(payload)
   }
 }
 
@@ -68,12 +96,30 @@ const actions = {
   GRClearMessages:({commit}, payload) => {
     commit('GRClearMessages', payload)
   },
-  GRAddConversation:({commit}, payload) => {
-    commit('GRAddConversation', payload)
+  GRAddConversations:({commit}, payload) => {
+    commit('GRAddConversations', payload)
   },
   GRClearConversation:({commit}, payload) => {
     commit('GRClearConversation', payload)
-  }
+  },
+  GRAddConversationMessages:({commit}, payload) => {
+    commit('GRAddConversationMessages', payload)
+  },
+  GRConversationsScrollDown:({commit}, payload) => {
+    commit('GRConversationsScrollDown', payload)
+  },
+  GRConversationsScrollInitiate:({commit}, payload) => {
+    commit('GRConversationsScrollInitiate', payload)
+  },
+  GRConnectMessageSocket:({commit}, payload) => {
+    commit('GRConnectMessageSocket', payload)
+  },
+  GRDisconnectMessageSocket:({commit}, payload) => {
+    commit('GRDisconnectMessageSocket', payload)
+  },
+  GRAddConversation:({commit}, payload) => {
+    commit('GRAddConversation', payload)
+  },
 }
 
 export default {

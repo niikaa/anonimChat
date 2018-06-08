@@ -26,9 +26,13 @@ router.post('/add_message', (req, res)=>{
   let newMsg = {
     sender_id: req.body.data.sender_id,
     chat_message: req.body.data.chat_message,
-    date: req.body.data.date
+    date: Date.now()
   }
-  Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, {$push: {messages: newMsg}}, (err, doc) => {
+  Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, 
+                                {
+                                  $set: { date: Date.now()},
+                                  $push: { messages: newMsg }
+                                }, (err, doc) => {
     if (err) {
       res.send({status: 500})
     } else {

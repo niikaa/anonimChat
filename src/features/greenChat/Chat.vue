@@ -5,7 +5,7 @@
       Friend info
     </div>
     <hr class="divider light-background">
-    <div class="chat-container">
+    <div class="chat-container" id="ablaku">
         <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
           <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
             <div class="chat-my-msg">
@@ -38,10 +38,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendGreenMessage } from '../../constants'
 import socket from '../../socket'
 export default {
+  mixins:[ConvMixin],
   data() {
     return {
       userMessage: ''
@@ -60,19 +62,21 @@ export default {
     ...mapActions([
       'GRChangeChatFetchStatus',
       'GRAddMessage',
+      'GRClearConversation',
+      'GRConversationsScrollInitiate',
+      'GRConversationsScrollDown',
+      'GRConnectMessageSocket'
     ]),
     handleSendMSG() {
       const data = {
         conversation_id: this.GreenChat.conversation_id,
         sender_id: this.Authentication.userResponse.id,
-        chat_message: this.userMessage,
-        date: Date.now
+        chat_message: this.userMessage
       }
       if (this.userMessage !== '') {
         this.$http.post(sendGreenMessage, {data}).then(response => {
           if (response.body.status === 200) {
-            // this.GRAddMessage(data[]
-            socket.emit('SEND_GREEN_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets })
+            socket.emit('SEND_GREEN_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.GreenChat.conversation_id })
           } else {
           }
           this.userMessage = ''
@@ -85,10 +89,26 @@ export default {
   components: {
     AppComponentLoader: ComponentLoader
   },
+  updated() {
+    document.getElementById("ablaku").addEventListener('domChanged', () => {
+      console.log('mouse over event');
+   
+    });
+    this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
+  },
   mounted () {
-    socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
-      this.GRAddMessage(data)
-    })
+    if(!this.GreenChat.messageSocketConnected){
+      socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
+        //console.log(data.conversation_id)
+        this.manageNewConversation(data.conversation_id)
+        // this.GRAddMessage(data)
+        // this.GRConversationsScrollInitiate()
+        // this.GRClearConversation();
+        // this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
+        // this.GRConversationsScrollDown();
+        // this.GRConnectMessageSocket();
+      })
+    }
     setTimeout(() => {
       this.GRChangeChatFetchStatus(false)
     }, 300)
@@ -102,4 +122,3 @@ export default {
   }
 }
 </script>
-

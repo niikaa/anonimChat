@@ -23,5 +23,17 @@ router.get('/get_conversations_green', (req, res)=> {
     })
 })
 
+router.get('/get_conversation_green', (req, res)=> {
+    const id = req.query.conversation_id
+    console.log(id)
+    Conversation.find({ _id: id }).then(conversation => {
+        if(conversation){
+            res.send({status: 200, data: conversation})
+        }else{
+            res.send({status: 500})
+        }
+    })
+})
+
 module.exports = router
 

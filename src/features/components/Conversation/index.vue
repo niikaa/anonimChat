@@ -36,11 +36,12 @@ export default {
   ]),
   methods: {
     ...mapActions([
-      'GRSetConversation'
+      'GRSetConversation',
+      'GRAddConversationMessages'
     ]),
     handleClick(){
       this.GRSetConversation(this.data._id)
-      console.log(this.data)
+      this.GRAddConversationMessages(this.data.messages)
     }
   },
   beforeMount(){
