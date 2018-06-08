@@ -90,10 +90,6 @@ export default {
     AppComponentLoader: ComponentLoader
   },
   updated() {
-    document.getElementById("ablaku").addEventListener('domChanged', () => {
-      console.log('mouse over event');
-   
-    });
     this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
   },
   mounted () {
@@ -101,12 +97,12 @@ export default {
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
         //console.log(data.conversation_id)
         this.manageNewConversation(data.conversation_id)
-        // this.GRAddMessage(data)
+        this.GRAddMessage(data)
         // this.GRConversationsScrollInitiate()
         // this.GRClearConversation();
         // this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
         // this.GRConversationsScrollDown();
-        // this.GRConnectMessageSocket();
+        this.GRConnectMessageSocket();
       })
     }
     setTimeout(() => {

@@ -68,6 +68,8 @@ const mutations =  {
     for(var i = 0; i < state.conversations.length; i ++){
       if(state.conversations[i]._id == payload._id){
         state.conversations.splice(i, 1)
+        state.skip ++;
+        break;
       }
     }
     state.conversations.unshift(payload)
