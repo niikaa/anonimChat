@@ -1,5 +1,6 @@
 <template>
   <div class="left-fixed-container">
+    <div class="blur-comp" v-if="GreenChat.loading"></div>
     <v-list subheader>
       <v-subheader class="dark-text">Friends</v-subheader>
         <v-divider class="light-background "></v-divider>
@@ -24,7 +25,8 @@ export default {
   },
   computed: {
     ...mapState ([
-      'Authentication'
+      'Authentication',
+      'GreenChat'
     ]),
     isFetching() {
       return this.Authentication.isFetching

@@ -1,5 +1,6 @@
 <template>
   <div class="right-fixed-container">
+    <div class="blur-comp" v-if="GreenChat.loading"></div>
     <v-list subheader>
       <v-subheader class="dark-text">
         <p class="header-pharagraph">

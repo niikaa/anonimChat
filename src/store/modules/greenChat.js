@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 const state = {
+  loading: false,
   active_friend: null,
   card_isFetcing: true,
   conversation_id: null,
@@ -18,6 +19,9 @@ const mutations =  {
     state.conversation_isFetching = true
     state.card_isFetcing = true
     state.active_friend = active_friend
+  },
+  GRRemoveActiveConversation(state, payload){
+    state.conversation_id = null;
   },
   GRRemoveActiveFriend(state, payload) {
     state.card_isFetcing = true
@@ -73,6 +77,9 @@ const mutations =  {
       }
     }
     state.conversations.unshift(payload)
+  },
+  GRSetLoading(state, payload) {
+    state.loading = payload
   }
 }
 
@@ -121,6 +128,12 @@ const actions = {
   },
   GRAddConversation:({commit}, payload) => {
     commit('GRAddConversation', payload)
+  },
+  GRRemoveActiveConversation:({commit}, payload) => {
+    commit('GRRemoveActiveConversation', payload)
+  },
+  GRSetLoading:({commit}, payload) => {
+    commit('GRSetLoading', payload)
   },
 }
 
