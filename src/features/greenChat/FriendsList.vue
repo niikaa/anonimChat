@@ -3,6 +3,7 @@
     <v-list subheader>
       <v-subheader class="dark-text">Friends</v-subheader>
         <v-divider class="light-background "></v-divider>
+        <AppSpinner></AppSpinner>
         <div class="fixed-height-scroll" v-if="Authentication.friends_obj">
           <template v-for="(item, index) in Authentication.friends_obj">
             <AppFriend :type="'green'" :data="item" :key="index"></AppFriend>
@@ -15,9 +16,11 @@
 <script>
 import Friend from '../components/Friend'
 import { mapState, mapActions } from 'vuex'
+import Spinner from './Spinner'
 export default {
   components: {
-    AppFriend: Friend
+    AppFriend: Friend,
+    AppSpinner: Spinner,
   },
   computed: {
     ...mapState ([

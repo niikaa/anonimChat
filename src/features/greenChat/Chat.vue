@@ -95,15 +95,10 @@ export default {
   mounted () {
     if(!this.GreenChat.messageSocketConnected){
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
-        //console.log(data.conversation_id)
         this.manageNewConversation(data.conversation_id)
         this.GRAddMessage(data)
-        // this.GRConversationsScrollInitiate()
-        // this.GRClearConversation();
-        // this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
-        // this.GRConversationsScrollDown();
-        this.GRConnectMessageSocket();
       })
+      this.GRConnectMessageSocket();
     }
     setTimeout(() => {
       this.GRChangeChatFetchStatus(false)
