@@ -1,7 +1,11 @@
 <template>
   <div class="right-fixed-container">
     <v-list subheader>
-      <v-subheader class="dark-text">Conversations</v-subheader>
+      <v-subheader class="dark-text">
+        <p class="header-pharagraph">
+          Conversations
+        </p>
+      </v-subheader>
         <v-divider class="light-background "></v-divider>
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
@@ -42,7 +46,7 @@ export default {
       'GRConversationsScrollDown',
       'GRConversationsScrollInitiate'
     ]),
-    scrollConversations(){      
+    scrollConversations(){
       this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
       this.GRConversationsScrollDown();
     }

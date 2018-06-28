@@ -10,7 +10,7 @@
         <v-list-tile-title class="dark-text">{{ data.messages[data.messages.length - 1].chat_message }}</v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
-    <div class="conversation_date">Data: {{data.date}}</div>
+    <div class="conversation_date">Date: {{data.date}}</div>
     </div>
 </template>
 
