@@ -90,7 +90,9 @@ export default {
     AppComponentLoader: ComponentLoader
   },
   updated() {
-    this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
+    if (this.$el.querySelector) {
+      this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
+    }
   },
   mounted () {
     if(!this.GreenChat.messageSocketConnected){
