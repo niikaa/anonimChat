@@ -34,6 +34,9 @@ const Conversation = new Schema({
     date: {
       type: Date
     },
+    seen: {
+      type: Boolean
+    }
   }]
 })
 

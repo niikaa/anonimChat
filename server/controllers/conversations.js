@@ -25,13 +25,27 @@ router.get('/get_conversations_green', (req, res)=> {
 
 router.get('/get_conversation_green', (req, res)=> {
     const id = req.query.conversation_id
-    console.log(id)
+    //console.log(id)
     Conversation.find({ _id: id }).then(conversation => {
         if(conversation){
             res.send({status: 200, data: conversation})
         }else{
             res.send({status: 500})
         }
+    })
+})
+
+router.post('/open_green_conversation', (req, res)=> {
+    const id = req.body.conversation_id;
+    Conversation.findOne({_id: new mongoose.mongo.ObjectId(id)}).then(conv => {
+        var query = "messages." + (conv.messages.length - 1) + ".seen"
+        var update={};
+        update[query]=true;
+        Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(id)}, {$set: update}).then(conv => {
+            if(conv){
+                res.send({status: 200})
+            }
+        })
     })
 })
 

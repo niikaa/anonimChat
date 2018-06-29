@@ -62,10 +62,8 @@ export default {
     ...mapActions([
       'GRChangeChatFetchStatus',
       'GRAddMessage',
-      'GRClearConversation',
-      'GRConversationsScrollInitiate',
-      'GRConversationsScrollDown',
-      'GRConnectMessageSocket'
+      'GRConnectMessageSocket',
+      'GRRemoveActiveConversation'
     ]),
     handleSendMSG() {
       const data = {
@@ -94,6 +92,10 @@ export default {
       this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
     }
   },
+  beforeDestroy(){
+    this.GRRemoveActiveConversation();
+  },
+
   mounted () {
     if(!this.GreenChat.messageSocketConnected){
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {

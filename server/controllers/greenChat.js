@@ -26,7 +26,8 @@ router.post('/add_message', (req, res)=>{
   let newMsg = {
     sender_id: req.body.data.sender_id,
     chat_message: req.body.data.chat_message,
-    date: Date.now()
+    date: Date.now(),
+    seen: false
   }
   Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, 
                                 {
