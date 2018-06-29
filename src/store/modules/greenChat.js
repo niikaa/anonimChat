@@ -19,6 +19,9 @@ const mutations =  {
     state.card_isFetcing = true
     state.active_friend = active_friend
   },
+  GRRemoveActiveConversation(state, payload){
+    state.conversation_id = null;
+  },
   GRRemoveActiveFriend(state, payload) {
     state.card_isFetcing = true
     state.active_friend = null
@@ -122,6 +125,9 @@ const actions = {
   GRAddConversation:({commit}, payload) => {
     commit('GRAddConversation', payload)
   },
+  GRRemoveActiveConversation:({commit}, payload) => {
+    commit('GRRemoveActiveConversation', payload)
+  }
 }
 
 export default {
