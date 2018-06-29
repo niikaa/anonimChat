@@ -7,3 +7,6 @@ export const createGreenConversation = API_BASE_URL + '/green_chat/create_new_co
 export const sendGreenMessage = API_BASE_URL + '/green_chat/add_message'
 export const getConversationsGreen = API_BASE_URL + '/conversations/get_conversations_green'
 export const getConversationGreen = API_BASE_URL + '/conversations/get_conversation_green'
+
+//--------blue-chat--------//
+
