@@ -48,7 +48,6 @@ export default {
           if (response.body.status === 200) {
             this.data.messages[this.data.messages.length - 1].seen = true;
             this.seen = true;
-            //socket.emit('SEND_GREEN_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.GreenChat.conversation_id })
           }
         }, () => {
         })
