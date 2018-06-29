@@ -54,7 +54,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { createGreenConversation } from '../../constants'
+import { createBlueConversation } from '../../constants'
+
 export default {
   data() {
     return {
@@ -98,7 +99,7 @@ export default {
         target_gender: this.BlueChat.active_friend.gender
       }
       this.BLClearMessages()
-      this.$http.post(createGreenConversation, {data}).then(response => {
+      this.$http.post(createBlueConversation, {data}).then(response => {
         if (response.body.status === 200) {
           this.BLSetConversation(response.body.data._id)
         }
