@@ -34,7 +34,7 @@
       }
     },
     beforeDestroy() {
-      this.GRSetLoading(false)
+      this.BLSetLoading(false)
       this.interrupted = true
     },
     methods: {
