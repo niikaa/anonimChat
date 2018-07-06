@@ -1,3 +1,3 @@
 import openSocket from 'socket.io-client'
 
-export default openSocket('http://localhost:3000')
+export default openSocket('https://anonimchats.com:3000',{secure: true})

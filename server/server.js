@@ -1,6 +1,13 @@
 const express = require('express')
+var fs = require('fs')
+
+var options ={
+  key:fs.readFileSync('/etc/letsencrypt/live/anonimchats.com/privkey.pem'),
+  cert:fs.readFileSync('/etc/letsencrypt/live/anonimchats.com/cert.pem'),
+  ca:fs.readFileSync('/etc/letsencrypt/live/anonimchats.com/fullchain.pem')
+};
 const app = express()
-const http = require('http').Server(app)
+const http = require('https').Server(options,app)
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const io = require('socket.io')(http)
