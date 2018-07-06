@@ -1,10 +1,10 @@
 <template>
   <div v-if="RedChat.active_friend" class="fill-area">
     <AppComponentLoader v-if="RedChat.card_isFetcing"></AppComponentLoader>
-    <div class="subheader dark-text">
+    <v-subheader class="subheader dark-text">
       Friend info
-    </div>
-    <hr class="divider light-background">
+    </v-subheader>
+    <v-divider class="divider light-background"></v-divider>
     <div class="fixed-height-scroll">
       <v-layout row>
         <v-flex xs-12>
@@ -22,7 +22,7 @@
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered">
-          <h4>
+          <h4 class="color-red-lighten">
             {{ RedChat.active_friend.name }}
           </h4>
         </v-flex>

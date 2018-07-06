@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed dark color="blue lighten-1">
+  <v-toolbar fixed dark :color="tColor">
     <v-toolbar-title class="white--text">Anonim chat</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">
@@ -16,9 +16,37 @@ import AuthMixin from '../../mixins/authenticate'
 import { mapState } from 'vuex'
 export default {
   mixins:[AuthMixin],
+  data() {
+    return {
+      tColor: 'grey lighten-1'
+    }
+  },
   computed: mapState ([
     'Authentication'
-  ])
+  ]),
+  beforeMount() {
+    this.calcToolColor(this.curROute)
+  },
+  methods: {
+    calcToolColor(newv) {
+      const cArray = ['blue', 'red', 'green']
+      const routeColor = newv.substring(1).split('_')[0]
+      if (!cArray.includes(routeColor))
+        this.tColor = 'blue lighten-1'
+      else
+        this.tColor = routeColor + ' lighten-1'
+    }
+  },
+  computed: {
+    curROute() {
+      return this.$route.path
+    }
+  },
+  watch: {
+    curROute(newv, oldv) {
+      this.calcToolColor(newv)
+    }
+  }
 }
 </script>
 
