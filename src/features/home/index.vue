@@ -42,7 +42,7 @@
             </v-badge>
           </div>
           <div class="text-xs-center ann-separated-line">
-            <v-btn round large color="grey lighten-4">
+            <v-btn @click="redirectToBlueChat()" round large color="grey lighten-4">
               <span class="text-blue"> View </span>
             </v-btn>
           </div>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="text-xs-center ann-separated-line">
-            <v-btn round large color="grey lighten-4">
+            <v-btn @click="redirectToRedChat()" round large color="grey lighten-4">
               <span class="text-red"> View </span>
             </v-btn>
           </div>
@@ -104,6 +104,12 @@ export default {
   methods: {
     redirectToGreenChat(){
       this.$router.push({name: 'GreenChat'})
+    },
+    redirectToBlueChat(){
+      this.$router.push({name: 'BlueChat'})
+    },
+    redirectToRedChat(){
+      this.$router.push({name: 'RedChat'})
     }
   },
 }

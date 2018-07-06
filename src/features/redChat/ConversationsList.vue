@@ -1,6 +1,6 @@
 <template>
   <div class="right-fixed-container">
-    <div class="blur-comp" v-if="GreenChat.loading"></div>
+    <div class="blur-comp" v-if="RedChat.loading"></div>
     <v-list subheader>
       <v-subheader class="dark-text">
         <p class="header-pharagraph">
@@ -10,8 +10,8 @@
         <v-divider class="light-background "></v-divider>
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-              <template v-for="(item, index) in GreenChat.conversations">
-                <AppConversation :key="index" :data="item" :type="'green'"></AppConversation>
+              <template v-for="(item, index) in RedChat.conversations">
+                <AppConversation :key="index" :data="item" :type="'red'"></AppConversation>
               </template>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     ...mapState ([
-      'GreenChat'
+      'RedChat'
     ]),
     // isFetching() {
     //   return this.Authentication.isFetching
@@ -43,18 +43,18 @@ export default {
   },
   methods: {
     ...mapActions([
-      'GRClearConversation',
-      'GRConversationsScrollDown',
-      'GRConversationsScrollInitiate'
+      'RDClearConversation',
+      'RDConversationsScrollDown',
+      'RDConversationsScrollInitiate'
     ]),
     scrollConversations(){
-      this.getConversationsForGreen(this.GreenChat.skip, this.GreenChat.limit)
-      this.GRConversationsScrollDown();
+      this.getConversationsForRed(this.RedChat.skip, this.RedChat.limit)
+      this.RDConversationsScrollDown();
     }
   },
   beforeMount () {
-    this.GRConversationsScrollInitiate()
-    this.GRClearConversation();
+    this.RDConversationsScrollInitiate()
+    this.RDClearConversation();
   },
 
   watch: {

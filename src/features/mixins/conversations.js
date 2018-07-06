@@ -1,6 +1,6 @@
 import { mapActions, mapState } from 'vuex'
 import socket from '../../socket'
-import {getConversationsGreen, getConversationGreen } from '../../constants'
+import {getConversationsGreen, getConversationsBlue, getConversationsRed, getConversation } from '../../constants'
 
 export default {
   data() {
@@ -10,14 +10,23 @@ export default {
   },
   computed: mapState ([
     'Authentication',
-    'GreenChat'
+    'GreenChat',
+    'BlueChat',
+    'RedChat'
   ]),
   methods: {
     ...mapActions([
         'GRAddConversations',
-        'GRAddConversation'
+        'GRAddConversation',
+        'BLAddConversations',
+        'BLAddConversation',
+        'RDAddConversations',
+        'RDAddConversation'
     ]),
-    getConversations(skip, limit){
+
+    // for green
+
+    getConversationsForGreen(skip, limit){
       var self = this
         var timer = setInterval(function(){
           if(self.Authentication.userResponse){
@@ -35,16 +44,90 @@ export default {
           }
         }, 200)
     },
-    manageNewConversation(id){
+    manageNewConversationForGreen(id){
       var self = this
         var timer = setInterval(function(){
           if(self.Authentication.userResponse){
             clearInterval(timer);
-            self.$http.get(getConversationGreen, {params: {conversation_id: id}}).then(response => {
-              console.log(response.body)
+            self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
               if (response.body.status === 200) {
-                console.log(response.body.data)
                 self.GRAddConversation(response.body.data[0])
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+
+    //for blue
+
+    getConversationsForBlue(skip, limit){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversationsBlue, {params: {chatName: 'blue', fb_id: self.Authentication.userResponse.id, skip: skip, limit: limit}}).then(response => {
+              if (response.body.status === 200) {
+                  if(response.body.data.length)
+                  self.BLAddConversations(response.body.data)
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+    manageNewConversationForBlue(id){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
+              if (response.body.status === 200) {
+                self.BLAddConversation(response.body.data[0])
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+
+    //for red
+
+    getConversationsForRed(skip, limit){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversationsRed, {params: {chatName: 'red', fb_id: self.Authentication.userResponse.id, skip: skip, limit: limit}}).then(response => {
+              if (response.body.status === 200) {
+                  if(response.body.data.length)
+                  self.RDAddConversations(response.body.data)
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+    manageNewConversationForRed(id){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
+              if (response.body.status === 200) {
+                self.RDAddConversation(response.body.data[0])
               } else {
   
               }

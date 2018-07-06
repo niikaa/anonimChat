@@ -1,6 +1,6 @@
 <template>
-  <div v-if="GreenChat.active_friend" class="fill-area">
-    <AppComponentLoader v-if="GreenChat.card_isFetcing"></AppComponentLoader>
+  <div v-if="RedChat.active_friend" class="fill-area">
+    <AppComponentLoader v-if="RedChat.card_isFetcing"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Friend info
     </v-subheader>
@@ -8,7 +8,7 @@
     <div class="fixed-height-scroll">
       <v-layout row>
         <v-flex xs-12>
-          <v-btn flat icon color="green lighten-1" @click="handleClose()">
+          <v-btn flat icon color="red" @click="handleClose()">
             <v-icon>close</v-icon>
           </v-btn>
         </v-flex>
@@ -16,16 +16,14 @@
       <v-layout row>
         <v-flex xs-12 class="ann-centered">
           <v-avatar class="fr-card-avatar">
-            <img v-if="GreenChat.active_friend.gender === genders.male" src="/static/icons/male.png"/>
-            <img v-if="GreenChat.active_friend.gender === genders.female" src="/static/icons/female.png"/>
-            <img v-if="!GreenChat.active_friend.gender || (GreenChat.active_friend.gender !== genders.male && GreenChat.active_friend.gender !== genders.female)" src="/static/icons/bgender.png"/>
+            <img :src="'https://graph.facebook.com/' + RedChat.active_friend.id + '/picture?type=large'"/>
           </v-avatar>
         </v-flex>
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered">
-          <h4 class="color-green-lighten">
-            One of your friend
+          <h4 class="color-red-lighten">
+            {{ RedChat.active_friend.name }}
           </h4>
         </v-flex>
       </v-layout>
@@ -40,7 +38,7 @@
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered overfl-hddn">
-          <v-btn color="green lighten-1 light-txt-bold" @click="handleStart()">
+          <v-btn color="red light-txt-bold" @click="handleStart()">
             <v-icon left>chat</v-icon>
             Start
           </v-btn>
@@ -54,7 +52,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { createGreenConversation } from '../../constants'
+import { createRedConversation } from '../../constants'
+
 export default {
   data() {
     return {
@@ -71,36 +70,36 @@ export default {
   },
   computed: {
     ...mapState([
-      'GreenChat',
+      'RedChat',
       'Authentication'
     ]),
     isFetching() {
-      return this.GreenChat.card_isFetcing
+      return this.RedChat.card_isFetcing
     }
   },
   methods: {
     ...mapActions([
-      'GRRemoveActiveFriend',
-      'GRChangeCardFetchStatus',
-      'GRSetConversation',
-      'GRClearMessages'
+      'RDRemoveActiveFriend',
+      'RDChangeCardFetchStatus',
+      'RDSetConversation',
+      'RDClearMessages'
     ]),
     handleClose() {
-      this.GRRemoveActiveFriend()
+      this.RDRemoveActiveFriend()
     },
     handleStart() {
       const data = {
-        chat_type_initiator: 'green',
+        chat_type_initiator: 'red',
         initiator_id: this.Authentication.userResponse.id,
         initiator_gender: this.Authentication.userResponse.gender,
-        chat_type_target: 'green',
-        target_id: this.GreenChat.active_friend.id,
-        target_gender: this.GreenChat.active_friend.gender
+        chat_type_target: 'blue',
+        target_id: this.RedChat.active_friend.id,
+        target_gender: this.RedChat.active_friend.gender
       }
-      this.GRClearMessages()
-      this.$http.post(createGreenConversation, {data}).then(response => {
+      this.RDClearMessages()
+      this.$http.post(createRedConversation, {data}).then(response => {
         if (response.body.status === 200) {
-          this.GRSetConversation(response.body.data._id)
+          this.RDSetConversation(response.body.data._id)
         }
       })
     }
@@ -110,13 +109,13 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this.GRChangeCardFetchStatus(false)
+      this.RDChangeCardFetchStatus(false)
     },300)
   },
   watch: {
     isFetching(oldVal, newVal) {
       setTimeout(() => {
-        this.GRChangeCardFetchStatus(false)
+        this.RDChangeCardFetchStatus(false)
       },300)
     }
   }

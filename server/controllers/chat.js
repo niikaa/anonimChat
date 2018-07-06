@@ -26,7 +26,8 @@ router.post('/add_message', (req, res)=>{
   let newMsg = {
     sender_id: req.body.data.sender_id,
     chat_message: req.body.data.chat_message,
-    date: Date.now()
+    date: Date.now(),
+    seen: false
   }
   Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, 
                                 {
@@ -36,22 +37,28 @@ router.post('/add_message', (req, res)=>{
     if (err) {
       res.send({status: 500})
     } else {
-      const fb_ids = []
-      fb_ids.push(doc.initiator_id)
-      fb_ids.push(doc.target_id)
-      SocketConnection.find( { fb_id: {$in: fb_ids} }, (error, result) => {
-        if(error){
+      let mySender = req.body.data.sender_id
+      let myTarget
+      if(req.body.data.sender_id === doc.initiator_id ){
+        myTarget = doc.target_id
+      }else{
+        myTarget = doc.initiator_id;
+      }
+      SocketConnection.find( { fb_id: mySender }, (itinError, initiatorTargets) => {
+        if(itinError){
           res.send({status: 500})                    
         }else{
-          res.send({status: 200, message: newMsg, targets: result })          
+          SocketConnection.find( { fb_id: myTarget }, (targetError, targetTargets) => {
+            if(targetError){
+              res.send({status: 500})                    
+            }else{
+              res.send({status: 200, message: newMsg, initTargets: initiatorTargets, targetTargets: targetTargets})
+            }     
+          })
         }
       })
     }
   })
-})
-
-router.get('/get_message', (req, res)=> {
-
 })
 
 module.exports = router
