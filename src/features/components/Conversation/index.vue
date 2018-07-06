@@ -105,9 +105,11 @@ export default {
     }
     if(this.data.initiator_id == this.Authentication.userResponse.id){
       this.iAmInitiator = true
+      this.iAmTarget = false
       this.convGender = this.data.target_gender
     }else if(this.data.target_id == this.Authentication.userResponse.id){
       this.iAmTarget = true
+      this.iAmInitiator = false;
       this.convGender = this.data.initiator_gender;
     }
   },
@@ -115,9 +117,11 @@ export default {
   updated() {
     if(this.data.initiator_id == this.Authentication.userResponse.id){
       this.iAmInitiator = true
+      this.iAmTarget = false
       this.convGender = this.data.target_gender
     }else if(this.data.target_id == this.Authentication.userResponse.id){
       this.iAmTarget = true
+      this.iAmInitiator = false;
       this.convGender = this.data.initiator_gender;
     }
     
