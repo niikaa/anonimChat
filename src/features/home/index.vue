@@ -67,7 +67,7 @@
           </div>
 
           <div class="text-xs-center ann-separated-line">
-            <v-btn round large color="grey lighten-4">
+            <v-btn @click="redirectToRedChat()" round large color="grey lighten-4">
               <span class="text-red"> View </span>
             </v-btn>
           </div>
@@ -107,6 +107,9 @@ export default {
     },
     redirectToBlueChat(){
       this.$router.push({name: 'BlueChat'})
+    },
+    redirectToRedChat(){
+      this.$router.push({name: 'RedChat'})
     }
   },
 }
