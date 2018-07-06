@@ -71,14 +71,14 @@ export default {
         sender_id: this.Authentication.userResponse.id,
         chat_message: this.userMessage
       }
-      if (this.userMessage !== '') {
+      if (this.userMessage.trim() !== '') {
+        this.userMessage = ''
         this.$http.post(sendMessage, {data}).then(response => {
           if (response.body.status === 200) {
             socket.emit('SEND_RED_CHAT_MESSAGE', {message: response.body.message, initTargets: response.body.initTargets, targetTargets: response.body.targetTargets, conversation_id: this.RedChat.conversation_id })
             // socket.emit('SEND_BLUE_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.RedChat.conversation_id })
           } else {
           }
-          this.userMessage = ''
         }, () => {
           this.userMessage = ''
         })
