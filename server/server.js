@@ -15,6 +15,7 @@ const connections = require('./controllers/connections')
 const greenChat = require('./controllers/greenChat')
 const conversations = require('./controllers/conversations')
 const blueChat = require('./controllers/blueChat')
+const redChat = require('./controllers/redChat')
 
 io.on('connection', function(socket){
   let socket_id = socket.id
@@ -61,4 +62,5 @@ app.use(function (req, res, next) {
 app.use('/connections', connections.router)
 app.use('/green_chat', greenChat)
 app.use('/blue_chat', blueChat)
+app.use('/red_chat', redChat)
 app.use('/conversations', conversations)
