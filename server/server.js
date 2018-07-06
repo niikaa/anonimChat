@@ -40,6 +40,12 @@ io.on('connection', function(socket){
         io.to(element.socket_id).emit('BLUE_CHAT_MSG_RECEIVE', data.message)
     })
   })
+  socket.on('SEND_RED_CHAT_MESSAGE', (data) => {
+    data.message.conversation_id = data.conversation_id
+    data.targets.forEach(element => {
+        io.to(element.socket_id).emit('RED_CHAT_MSG_RECEIVE', data.message)
+    })
+  })
 })
 
 http.listen(3000, () => {

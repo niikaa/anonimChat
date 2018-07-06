@@ -2,15 +2,13 @@
   <div class="reltv-ann">
     <v-list-tile v-if="computedType === types.green" avatar @click="handleClickGreen()">
       <v-list-tile-avatar>
-        <!--es aris realuri profilis surati-->
-        <!--<img :src="'https://graph.facebook.com/' + data.id + '/picture'"/>-->
         <img v-if="data.gender === genders.male" src="/static/icons/male.png"/>
         <img v-if="data.gender === genders.female" src="/static/icons/female.png"/>
         <img v-if="!data.gender || (data.gender !== genders.male && data.gender !== genders.female)" src="/static/icons/bgender.png"/>
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title class="dark-text">
-          <!-- {{ data.name }} -->Anonim
+          Anonim
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
@@ -22,7 +20,17 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title class="dark-text">
-          <!-- {{ data.name }} -->Anonim
+         Anonim
+        </v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+    <v-list-tile v-if="computedType === types.red" avatar @click="handleClickRed()">
+      <v-list-tile-avatar>
+        <img :src="'https://graph.facebook.com/' + data.id + '/picture'"/>
+      </v-list-tile-avatar>
+      <v-list-tile-content>
+        <v-list-tile-title class="dark-text">
+         {{ data.name }}
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
@@ -67,13 +75,17 @@ export default {
    methods: {
      ...mapActions([
         'GRSetActiveFriend',
-        'BLSetActiveFriend'
+        'BLSetActiveFriend',
+        'RDSetActiveFriend'
       ]),
      handleClickGreen() {
       this.GRSetActiveFriend(this.data)
      },
      handleClickBlue() {
        this.BLSetActiveFriend(this.data)
+     },
+     handleClickRed() {
+       this.RDSetActiveFriend(this.data)
      }
    }
 }
