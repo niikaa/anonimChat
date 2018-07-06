@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://anonimchats.com:3000'
+export const API_BASE_URL = 'https://anonimchats.com:3000'
 export const BASE_URL = 'https://anonimchats.com'
 
 export const getActiveFriends = API_BASE_URL + '/connections/active_friends'
