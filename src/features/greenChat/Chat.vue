@@ -99,7 +99,7 @@ export default {
   mounted () {
     if(!this.GreenChat.messageSocketConnected){
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
-        this.manageNewConversation(data.conversation_id)
+        this.manageNewConversationForGreen(data.conversation_id)
         this.GRAddMessage(data)
       })
       this.GRConnectMessageSocket();

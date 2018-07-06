@@ -99,7 +99,7 @@ export default {
   mounted () {
     if(!this.BlueChat.messageSocketConnected){
       socket.on('BLUE_CHAT_MSG_RECEIVE', (data) => {
-        this.manageNewConversation(data.conversation_id)
+        this.manageNewConversationForBlue(data.conversation_id)
         this.BLAddMessage(data)
       })
       this.BLConnectMessageSocket();

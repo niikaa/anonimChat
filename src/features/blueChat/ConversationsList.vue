@@ -11,7 +11,7 @@
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
               <template v-for="(item, index) in BlueChat.conversations">
-                <AppConversation :key="index" :data="item"></AppConversation>
+                <AppConversation :key="index" :data="item" :type="'blue'"></AppConversation>
               </template>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default {
       'BLConversationsScrollInitiate'
     ]),
     scrollConversations(){
-      this.getConversations(this.BlueChat.skip, this.BlueChat.limit)
+      this.getConversationsForBlue(this.BlueChat.skip, this.BlueChat.limit)
       this.BLConversationsScrollDown();
     }
   },

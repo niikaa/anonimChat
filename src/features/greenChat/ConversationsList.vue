@@ -11,7 +11,7 @@
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
               <template v-for="(item, index) in GreenChat.conversations">
-                <AppConversation :key="index" :data="item"></AppConversation>
+                <AppConversation :key="index" :data="item" :type="'green'"></AppConversation>
               </template>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default {
       'GRConversationsScrollInitiate'
     ]),
     scrollConversations(){
-      this.getConversations(this.GreenChat.skip, this.GreenChat.limit)
+      this.getConversationsForGreen(this.GreenChat.skip, this.GreenChat.limit)
       this.GRConversationsScrollDown();
     }
   },

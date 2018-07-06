@@ -10,7 +10,7 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title class="dark-text">
-          {{ data.name }}
+          <!-- {{ data.name }} -->Anonim
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
@@ -22,7 +22,7 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title class="dark-text">
-          {{ data.name }}
+          <!-- {{ data.name }} -->Anonim
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
