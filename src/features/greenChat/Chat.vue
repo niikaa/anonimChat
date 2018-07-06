@@ -100,7 +100,8 @@ export default {
     if(!this.GreenChat.messageSocketConnected){
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForGreen(data.conversation_id)
-        this.GRAddMessage(data)
+        if(this.GreenChat.conversation_id == data.conversation_id)
+          this.GRAddMessage(data)
       })
       this.GRConnectMessageSocket();
     }

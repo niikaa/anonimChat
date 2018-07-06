@@ -1,7 +1,6 @@
 import { mapActions, mapState } from 'vuex'
 import socket from '../../socket'
-import {getConversationsGreen, getConversation } from '../../constants'
-import {getConversationsBlue} from '../../constants'
+import {getConversationsGreen, getConversationsBlue, getConversationsRed, getConversation } from '../../constants'
 
 export default {
   data() {
@@ -12,14 +11,17 @@ export default {
   computed: mapState ([
     'Authentication',
     'GreenChat',
-    'BlueChat'
+    'BlueChat',
+    'RedChat'
   ]),
   methods: {
     ...mapActions([
         'GRAddConversations',
         'GRAddConversation',
         'BLAddConversations',
-        'BLAddConversation'
+        'BLAddConversation',
+        'RDAddConversations',
+        'RDAddConversation'
     ]),
 
     // for green
@@ -88,6 +90,44 @@ export default {
             self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
               if (response.body.status === 200) {
                 self.BLAddConversation(response.body.data[0])
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+
+    //for red
+
+    getConversationsForRed(skip, limit){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversationsRed, {params: {chatName: 'red', fb_id: self.Authentication.userResponse.id, skip: skip, limit: limit}}).then(response => {
+              if (response.body.status === 200) {
+                  if(response.body.data.length)
+                  self.RDAddConversations(response.body.data)
+              } else {
+  
+              }
+            }, () => {
+  
+            })
+          }
+        }, 200)
+    },
+    manageNewConversationForRed(id){
+      var self = this
+        var timer = setInterval(function(){
+          if(self.Authentication.userResponse){
+            clearInterval(timer);
+            self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
+              if (response.body.status === 200) {
+                self.RDAddConversation(response.body.data[0])
               } else {
   
               }

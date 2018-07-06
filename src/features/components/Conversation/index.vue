@@ -27,6 +27,20 @@
     </v-list-tile>
     <div class="conversation_date">Date: {{data.date}}</div>
     </div>
+
+    <div v-if="type == 'red'" class="reltv-ann" v-bind:class="{ notSeenClass: !seen , activeConversation: RedChat.conversation_id == data._id}">
+    <v-list-tile avatar @click="handleClick()">
+      <v-list-tile-avatar>
+        <img v-if="convGender === genders.male" src="/static/icons/male.png"/>
+        <img v-if="convGender === genders.female" src="/static/icons/female.png"/>
+        <img v-if="!convGender || (convGender !== genders.male && convGender !== genders.female)" src="/static/icons/bgender.png"/>
+      </v-list-tile-avatar>
+      <v-list-tile-content>
+        <v-list-tile-title class="dark-text">{{ data.messages[data.messages.length - 1].chat_message }}</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+    <div class="conversation_date">Date: {{data.date}}</div>
+    </div>
 </div>
 </template>
 
@@ -50,15 +64,17 @@ export default {
   computed: mapState ([
     'Authentication',
     'GreenChat',
-    'BlueChat'
-
+    'BlueChat',
+    'RedChat'
   ]),
   methods: {
     ...mapActions([
       'GRSetConversation',
       'GRAddConversationMessages',
       'BLSetConversation',
-      'BLAddConversationMessages'
+      'BLAddConversationMessages',
+      'RDSetConversation',
+      'RDAddConversationMessages'
     ]),
     handleClick(){
       console.log(this.type)
@@ -68,6 +84,9 @@ export default {
       }else if(this.type == 'blue'){
         this.BLSetConversation(this.data._id)
         this.BLAddConversationMessages(this.data.messages)
+      }else if(this.type == 'red'){
+        this.RDSetConversation(this.data._id)
+        this.RDAddConversationMessages(this.data.messages)
       }
       if(this.Authentication.userResponse.id != this.data.messages[this.data.messages.length - 1].sender_id){
         this.$http.post(openConversation, {conversation_id: this.data._id, }).then(response => {
@@ -103,8 +122,11 @@ export default {
       if(this.type == 'green'){
         if(this.GreenChat.conversation_id != this.data._id)
         this.seen = this.data.messages[this.data.messages.length - 1].seen;
-      }else if(this.type = 'blue'){
+      }else if(this.type == 'blue'){
         if(this.BlueChat.conversation_id != this.data._id)
+        this.seen = this.data.messages[this.data.messages.length - 1].seen;
+      }else if(this.type == 'red'){
+        if(this.RedChat.conversation_id != this.data._id)
         this.seen = this.data.messages[this.data.messages.length - 1].seen;
       }
     }

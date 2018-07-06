@@ -75,6 +75,7 @@ export default {
         this.$http.post(sendBlueMessage, {data}).then(response => {
           if (response.body.status === 200) {
             socket.emit('SEND_BLUE_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.BlueChat.conversation_id })
+            socket.emit('SEND_RED_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.BlueChat.conversation_id })
           } else {
           }
           this.userMessage = ''
@@ -100,7 +101,8 @@ export default {
     if(!this.BlueChat.messageSocketConnected){
       socket.on('BLUE_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForBlue(data.conversation_id)
-        this.BLAddMessage(data)
+        if(this.BlueChat.conversation_id == data.conversation_id)
+          this.BLAddMessage(data)
       })
       this.BLConnectMessageSocket();
     }

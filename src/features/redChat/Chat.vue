@@ -75,6 +75,7 @@ export default {
         this.$http.post(sendRedMessage, {data}).then(response => {
           if (response.body.status === 200) {
             socket.emit('SEND_RED_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.RedChat.conversation_id })
+            socket.emit('SEND_BLUE_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.RedChat.conversation_id })
           } else {
           }
           this.userMessage = ''
@@ -99,8 +100,9 @@ export default {
   mounted () {
     if(!this.RedChat.messageSocketConnected){
       socket.on('RED_CHAT_MSG_RECEIVE', (data) => {
-        //this.manageNewConversationForBlue(data.conversation_id)
-        this.RDAddMessage(data)
+        this.manageNewConversationForRed(data.conversation_id)
+        if(this.RedChat.conversation_id == data.conversation_id)
+          this.RDAddMessage(data)
       })
       this.RDConnectMessageSocket();
     }

@@ -54,8 +54,30 @@ router.get('/get_conversations_blue', (req, res)=> {
     const skip = req.query.skip
     const limit = req.query.limit
     Conversation.find({ $and:[
-                        {$or: [ {chat_type_initiator:chatName },  {chat_type_target:chatName} ]},
-                        {$or: [ { initiator_id: id }, { target_id: id } ]},
+                        {$or: [
+                            {$and:[{chat_type_initiator:chatName }, { initiator_id: id } ]},
+                            {$and:[{chat_type_target:chatName}, { target_id: id } ]}
+                        ]},
+                        {$where: "this.messages.length > 0"}
+                        ]}).sort({"date": -1}).skip(parseInt(skip)).limit(parseInt(limit)).then(conversations => {
+        if(conversations){
+            res.send({status: 200, data: conversations})
+        }else{
+            res.send({status: 500})
+        }
+    })
+})
+
+router.get('/get_conversations_red', (req, res)=> {
+    const chatName = req.query.chatName
+    const id = req.query.fb_id
+    const skip = req.query.skip
+    const limit = req.query.limit
+    Conversation.find({ $and:[
+                        {$or: [
+                            {$and:[{chat_type_initiator:chatName }, { initiator_id: id } ]},
+                            {$and:[{chat_type_target:chatName}, { target_id: id } ]}
+                        ]},
                         {$where: "this.messages.length > 0"}
                         ]}).sort({"date": -1}).skip(parseInt(skip)).limit(parseInt(limit)).then(conversations => {
         if(conversations){

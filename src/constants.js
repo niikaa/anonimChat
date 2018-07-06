@@ -3,13 +3,13 @@ export const BASE_URL = 'http://localhost:8080'
 
 export const getActiveFriends = API_BASE_URL + '/connections/active_friends'
 
+export const getConversation = API_BASE_URL + '/conversations/get_conversation'
+export const openConversation = API_BASE_URL + '/conversations/open_conversation'
+
 //--------green-chat--------//
 export const createGreenConversation = API_BASE_URL + '/green_chat/create_new_conversation'
 export const sendGreenMessage = API_BASE_URL + '/green_chat/add_message'
 export const getConversationsGreen = API_BASE_URL + '/conversations/get_conversations_green'
-export const getConversation = API_BASE_URL + '/conversations/get_conversation'
-
-export const openConversation = API_BASE_URL + '/conversations/open_conversation'
 
 //--------blue-chat--------//
 export const createBlueConversation = API_BASE_URL + '/blue_chat/create_new_conversation'
@@ -19,5 +19,4 @@ export const getConversationsBlue = API_BASE_URL + '/conversations/get_conversat
 //--------red-chat--------//
 export const createRedConversation = API_BASE_URL + '/red_chat/create_new_conversation'
 export const sendRedMessage = API_BASE_URL + '/red_chat/add_message'
-
-export const openGreenConversation = API_BASE_URL + '/conversations/open_green_conversation'
+export const getConversationsRed = API_BASE_URL + '/conversations/get_conversations_red'
