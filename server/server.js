@@ -12,10 +12,8 @@ mongoose.connect('mongodb://localhost:27017/anonimChat').then((db)=>{
 )
 
 const connections = require('./controllers/connections')
-const greenChat = require('./controllers/greenChat')
+const chat = require('./controllers/chat')
 const conversations = require('./controllers/conversations')
-const blueChat = require('./controllers/blueChat')
-const redChat = require('./controllers/redChat')
 
 io.on('connection', function(socket){
   let socket_id = socket.id
@@ -30,20 +28,29 @@ io.on('connection', function(socket){
   })
   socket.on('SEND_GREEN_CHAT_MESSAGE', (data) => {
     data.message.conversation_id = data.conversation_id
-    data.targets.forEach(element => {
+    data.initTargets.forEach(element => {
+        io.to(element.socket_id).emit('GREEN_CHAT_MSG_RECEIVE', data.message)
+    })
+    data.targetTargets.forEach(element => {
         io.to(element.socket_id).emit('GREEN_CHAT_MSG_RECEIVE', data.message)
     })
   })
   socket.on('SEND_BLUE_CHAT_MESSAGE', (data) => {
     data.message.conversation_id = data.conversation_id
-    data.targets.forEach(element => {
+    data.initTargets.forEach(element => {
         io.to(element.socket_id).emit('BLUE_CHAT_MSG_RECEIVE', data.message)
+    })
+    data.targetTargets.forEach(element => {
+        io.to(element.socket_id).emit('RED_CHAT_MSG_RECEIVE', data.message)
     })
   })
   socket.on('SEND_RED_CHAT_MESSAGE', (data) => {
     data.message.conversation_id = data.conversation_id
-    data.targets.forEach(element => {
+    data.initTargets.forEach(element => {
         io.to(element.socket_id).emit('RED_CHAT_MSG_RECEIVE', data.message)
+    })
+    data.targetTargets.forEach(element => {
+        io.to(element.socket_id).emit('BLUE_CHAT_MSG_RECEIVE', data.message)
     })
   })
 })
@@ -66,7 +73,5 @@ app.use(function (req, res, next) {
 });
 
 app.use('/connections', connections.router)
-app.use('/green_chat', greenChat)
-app.use('/blue_chat', blueChat)
-app.use('/red_chat', redChat)
+app.use('/chat', chat)
 app.use('/conversations', conversations)
