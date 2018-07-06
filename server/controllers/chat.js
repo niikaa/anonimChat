@@ -38,13 +38,19 @@ router.post('/add_message', (req, res)=>{
       res.send({status: 500})
     } else {
       const fb_ids = []
-      fb_ids.push(doc.initiator_id)
-      fb_ids.push(doc.target_id)
-      SocketConnection.find( { fb_id: {$in: fb_ids} }, (error, result) => {
-        if(error){
+      // fb_ids.push(doc.initiator_id)
+      // fb_ids.push(doc.target_id)
+      SocketConnection.find( { fb_id: doc.initiator_id }, (itinError, initiatorTargets) => {
+        if(itinError){
           res.send({status: 500})                    
         }else{
-          res.send({status: 200, message: newMsg, targets: result })          
+          SocketConnection.find( { fb_id: doc.initiator_id }, (targetError, targetTargets) => {
+            if(targetError){
+              res.send({status: 500})                    
+            }else{
+              res.send({status: 200, message: newMsg, initTargets: initiatorTargets, targetTargets: targetTargets})
+            }     
+          })
         }
       })
     }
