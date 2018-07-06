@@ -40,7 +40,7 @@
 import { mapState, mapActions } from 'vuex'
 import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendRedMessage } from '../../constants'
+import { sendMessage } from '../../constants'
 import socket from '../../socket'
 export default {
   mixins:[ConvMixin],
@@ -72,7 +72,7 @@ export default {
         chat_message: this.userMessage
       }
       if (this.userMessage !== '') {
-        this.$http.post(sendRedMessage, {data}).then(response => {
+        this.$http.post(sendMessage, {data}).then(response => {
           if (response.body.status === 200) {
             socket.emit('SEND_RED_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.RedChat.conversation_id })
             socket.emit('SEND_BLUE_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.RedChat.conversation_id })

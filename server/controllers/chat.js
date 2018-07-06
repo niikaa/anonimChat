@@ -51,8 +51,4 @@ router.post('/add_message', (req, res)=>{
   })
 })
 
-router.get('/get_message', (req, res)=> {
-
-})
-
 module.exports = router
