@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Welcome from '@/features/welcome'
 import Home from '@/features/home'
 import GreenChat from '@/features/greenChat'
-import BlueChat from '@/features/BlueChat'
-import RedChat from '@/features/RedChat'
+import BlueChat from '@/features/blueChat'
+import RedChat from '@/features/redChat'
 
 Vue.use(Router)
 
