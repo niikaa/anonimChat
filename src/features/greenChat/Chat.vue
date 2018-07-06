@@ -1,14 +1,14 @@
 <template>
   <div v-if="GreenChat.conversation_id" class="fill-area">
     <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
-    <div class="subheader dark-text">
+    <v-subheader class="subheader dark-text">
       Friend info
-    </div>
-    <hr class="divider light-background">
+    </v-subheader>
+    <v-divider class="divider light-background"></v-divider>
     <div class="chat-container" id="ablaku">
         <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
           <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
-            <div class="chat-my-msg">
+            <div class="chat-my-msg color-green-lighten-background">
               {{item.chat_message}}
             </div>
           </v-flex>
@@ -25,7 +25,7 @@
           <v-flex xs-12>
             <input v-model="userMessage" type="text" class="chat-input" >
             <div class="overed-rows">
-              <v-btn type="button" flat icon color="blue" @click="handleSendMSG()">
+              <v-btn type="button" flat icon color="green lighten-1" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
               </v-btn>
             </div>

@@ -1,14 +1,14 @@
 <template>
   <div v-if="GreenChat.active_friend" class="fill-area">
     <AppComponentLoader v-if="GreenChat.card_isFetcing"></AppComponentLoader>
-    <div class="subheader dark-text">
+    <v-subheader class="subheader dark-text">
       Friend info
-    </div>
-    <hr class="divider light-background">
+    </v-subheader>
+    <v-divider class="divider light-background"></v-divider>
     <div class="fixed-height-scroll">
       <v-layout row>
         <v-flex xs-12>
-          <v-btn flat icon color="green" @click="handleClose()">
+          <v-btn flat icon color="green lighten-1" @click="handleClose()">
             <v-icon>close</v-icon>
           </v-btn>
         </v-flex>
@@ -24,7 +24,7 @@
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered">
-          <h4>
+          <h4 class="color-green-lighten">
             One of your friend
           </h4>
         </v-flex>
@@ -40,7 +40,7 @@
       </v-layout>
       <v-layout row>
         <v-flex xs-12 class="ann-centered overfl-hddn">
-          <v-btn color="green light-txt-bold" @click="handleStart()">
+          <v-btn color="green lighten-1 light-txt-bold" @click="handleStart()">
             <v-icon left>chat</v-icon>
             Start
           </v-btn>
