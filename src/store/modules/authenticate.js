@@ -15,7 +15,6 @@ const mutations = {
     state.isLoggedIn = true
     state.friends_ids = []
     state.userResponse = response
-    console.log(response)
     for(var i=0; i<response.friends.data.length;i++){
       state.friends_ids.push(response.friends.data[i].id)
     }

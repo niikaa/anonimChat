@@ -23,6 +23,7 @@
 <script>
 import AuthMixin from '../../mixins/authenticate'
 import { mapState } from 'vuex'
+import {getNotifications} from '../../../constants'
 export default {
   mixins:[AuthMixin],
   data() {
@@ -30,12 +31,21 @@ export default {
       tColor: 'grey lighten-1'
     }
   },
-  computed: mapState ([
-    'Authentication'
-  ]),
+  computed: {
+    ...mapState([
+      'Authentication'
+    ]),
+    userId() {
+      return this.Authentication.userResponse
+    },
+    curROute() {
+      return this.$route.path
+    }
+  },
   beforeMount() {
     this.calcToolColor(this.curROute)
   },
+
   methods: {
     calcToolColor(newv) {
       const cArray = ['blue', 'red', 'green']
@@ -53,16 +63,27 @@ export default {
     },
     redirectToRedChat(){
       this.$router.push({name: 'RedChat'})
-    }
-  },
-  computed: {
-    curROute() {
-      return this.$route.path
+    },
+    getNotifications(fb_id){
+      console.log(fb_id)
+      this.$http.get(getNotifications, {params: {fb_id: fb_id}}).then(response => {
+        console.log(response)
+        if (response.body.status === 200) {
+          
+        } else {
+
+        }
+      }, () => {
+
+      })
     }
   },
   watch: {
     curROute(newv, oldv) {
       this.calcToolColor(newv)
+    },
+    userId(newval, oldval){
+      this.getNotifications(newval.id)
     }
   }
 }

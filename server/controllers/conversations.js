@@ -15,6 +15,20 @@ router.get('/get_conversation', (req, res)=> {
     })
 })
 
+router.get('/get_notification', (req, res)=> {
+    const id = req.query.fb_id
+    Conversation.find({ $and: [
+        {$or: [{initiator_id: id}, {target_id: id}]},
+        {$where: "this.messages.length > 0"}
+    ] }).then(conversation => {
+        if(conversation){ 
+            res.send({status: 200, data: conversation})
+        }else{
+            res.send({status: 500})
+        }
+    })
+})
+
 router.post('/open_conversation', (req, res)=> {
     const id = req.body.conversation_id;
     Conversation.findOne({_id: new mongoose.mongo.ObjectId(id)}).then(conv => {
