@@ -5,6 +5,7 @@ export const getActiveFriends = API_BASE_URL + '/connections/active_friends'
 
 export const getConversation = API_BASE_URL + '/conversations/get_conversation'
 export const openConversation = API_BASE_URL + '/conversations/open_conversation'
+export const getNotifications = API_BASE_URL + '/conversations/get_notification'
 
 //--------green-chat--------//
 export const createGreenConversation = API_BASE_URL + '/chat/create_new_conversation'
