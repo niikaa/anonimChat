@@ -1,6 +1,6 @@
 <template>
   <v-toolbar fixed dark color="blue lighten-1">
-    <v-toolbar-title class="white--text">Title</v-toolbar-title>
+    <v-toolbar-title class="white--text">Anonim chat</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">
       <v-icon>https</v-icon>
