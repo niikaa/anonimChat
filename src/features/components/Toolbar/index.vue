@@ -2,6 +2,15 @@
   <v-toolbar fixed dark :color="tColor">
     <v-toolbar-title class="white--text">Anonim chat</v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-btn flat small @click="redirectToGreenChat">
+      Green
+    </v-btn>
+    <v-btn flat small @click="redirectToBlueChat">
+      Blue
+    </v-btn>
+    <v-btn flat small @click="redirectToRedChat">
+      Red
+    </v-btn>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">
       <v-icon>https</v-icon>
     </v-btn>
@@ -35,6 +44,15 @@ export default {
         this.tColor = 'blue lighten-1'
       else
         this.tColor = routeColor + ' lighten-1'
+    },
+    redirectToGreenChat(){
+      this.$router.push({name: 'GreenChat'})
+    },
+    redirectToBlueChat(){
+      this.$router.push({name: 'BlueChat'})
+    },
+    redirectToRedChat(){
+      this.$router.push({name: 'RedChat'})
     }
   },
   computed: {
