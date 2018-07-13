@@ -10,7 +10,8 @@ const state = {
   conversations: [],
   skip: 0,
   limit: 20,
-  messageSocketConnected: false
+  messageSocketConnected: false,
+  unreadConversations: []
 }
 
 const mutations =  {
@@ -80,6 +81,19 @@ const mutations =  {
   },
   RDSetLoading(state, payload) {
     state.loading = payload
+  },
+  RDSetUnreadConversations(state, payload) {
+    state.unreadConversations = payload
+  },
+  RDAddIntoUnreadConversations(state, payload) {
+    state.unreadConversations.push(payload)
+  },
+  RDARemoveFromUnreadConversations(state, payload) {
+    for(var i = state.unreadConversations.length - 1; i >= 0; i--) {
+      if(state.unreadConversations[payload] === number) {
+        state.unreadConversations.splice(payload, 1);
+      }
+    }
   }
 }
 
@@ -134,6 +148,15 @@ const actions = {
   },
   RDSetLoading:({commit}, payload) => {
     commit('RDSetLoading', payload)
+  },
+  RDSetUnreadConversations:({commit}, payload) => {
+    commit('RDSetUnreadConversations', payload)
+  },
+  RDAddIntoUnreadConversations:({commit}, payload) => {
+    commit('RDAddIntoUnreadConversations', payload)
+  },
+  RDARemoveFromUnreadConversations:({commit}, payload) => {
+    commit('RDARemoveFromUnreadConversations', payload)
   },
 }
 

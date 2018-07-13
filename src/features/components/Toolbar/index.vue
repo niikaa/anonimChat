@@ -2,13 +2,13 @@
   <v-toolbar fixed dark :color="tColor">
     <v-toolbar-title class="white--text">Anonim chat</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn flat small @click="redirectToGreenChat">
+    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToGreenChat">
       Green
     </v-btn>
-    <v-btn flat small @click="redirectToBlueChat">
+    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToBlueChat">
       Blue
     </v-btn>
-    <v-btn flat small @click="redirectToRedChat">
+    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToRedChat">
       Red
     </v-btn>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">

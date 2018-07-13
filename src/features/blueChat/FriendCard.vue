@@ -33,8 +33,7 @@
         <v-flex xs-12 class="ann-centered overfl-hddn">
           <p class="ch-card-description">
             Now you can start conversation with your friend,
-            feel free, he has no chance to to guess your identity,
-            unless you give it.
+            feel free, but Be careful he knows about your identity.
           </p>
         </v-flex>
       </v-layout>

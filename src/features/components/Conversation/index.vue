@@ -124,7 +124,7 @@ export default {
       this.iAmInitiator = false;
       this.convGender = this.data.initiator_gender;
     }
-    
+
     if(this.Authentication.userResponse.id == this.data.messages[this.data.messages.length - 1].sender_id){
       this.seen = true;
     }

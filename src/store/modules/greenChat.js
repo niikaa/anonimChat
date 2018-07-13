@@ -10,7 +10,8 @@ const state = {
   conversations: [],
   skip: 0,
   limit: 20,
-  messageSocketConnected: false
+  messageSocketConnected: false,
+  unreadConversations: []
 }
 
 const mutations =  {
@@ -80,6 +81,19 @@ const mutations =  {
   },
   GRSetLoading(state, payload) {
     state.loading = payload
+  },
+  GRSetUnreadConversations(state, payload) {
+    state.unreadConversations = payload
+  },
+  GRAddIntoUnreadConversations(state, payload) {
+    state.unreadConversations.push(payload)
+  },
+  GRARemoveFromUnreadConversations(state, payload) {
+    for(var i = state.unreadConversations.length - 1; i >= 0; i--) {
+      if(state.unreadConversations[payload] === number) {
+        state.unreadConversations.splice(payload, 1);
+      }
+    }
   }
 }
 
@@ -134,6 +148,15 @@ const actions = {
   },
   GRSetLoading:({commit}, payload) => {
     commit('GRSetLoading', payload)
+  },
+  GRSetUnreadConversations:({commit}, payload) => {
+    commit('GRSetUnreadConversations', payload)
+  },
+  GRAddIntoUnreadConversations:({commit}, payload) => {
+    commit('GRAddIntoUnreadConversations', payload)
+  },
+  GRARemoveFromUnreadConversations:({commit}, payload) => {
+    commit('GRARemoveFromUnreadConversations', payload)
   },
 }
 
