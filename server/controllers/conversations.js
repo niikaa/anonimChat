@@ -22,6 +22,7 @@ router.get('/get_notification', (req, res)=> {
         {$where: "this.messages.length > 0"}
     ] }).then(conversation => {
         if(conversation){ 
+
             res.send({status: 200, data: conversation})
         }else{
             res.send({status: 500})
