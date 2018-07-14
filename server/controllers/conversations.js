@@ -19,11 +19,10 @@ router.get('/get_notification', (req, res)=> {
     const id = req.query.fb_id
     Conversation.find({ $and: [
         {$or: [{initiator_id: id}, {target_id: id}]},
-        {$where: "this.messages.length > 0"}
-    ] }).then(conversation => {
-        if(conversation){ 
-
-            res.send({status: 200, data: conversation})
+        {$where: "this.messages[this.messages.length - 1].seen == false && this.messages[this.messages.length - 1].sender_id != " + id}
+    ] }).then(conversations => {
+        if(conversations){ 
+            res.send({status: 200, data: conversations})
         }else{
             res.send({status: 500})
         }
