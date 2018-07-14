@@ -20,7 +20,7 @@ router.get('/get_notification', (req, res)=> {
     Conversation.find({ $and: [
         {$or: [{initiator_id: id}, {target_id: id}]},
         {$where: "this.messages[this.messages.length - 1].seen == false && this.messages[this.messages.length - 1].sender_id != " + id}
-    ] }).then(conversations => {
+    ] }).select({"messages": 0}).then(conversations => {
         if(conversations){ 
             res.send({status: 200, data: conversations})
         }else{
