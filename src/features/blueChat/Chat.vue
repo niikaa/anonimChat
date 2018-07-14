@@ -23,7 +23,7 @@
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
         <v-layout row>
           <v-flex xs-12>
-            <input v-model="userMessage" type="text" class="chat-input" >
+            <input v-model="userMessage" type="text" class="chat-input"  @focus="handleFocus()">
             <div class="overed-rows">
               <v-btn type="button" flat icon color="blue lighten-1" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
@@ -40,7 +40,7 @@
 import { mapState, mapActions } from 'vuex'
 import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendMessage } from '../../constants'
+import { sendMessage , openConversation} from '../../constants'
 import socket from '../../socket'
 export default {
   mixins:[ConvMixin],
@@ -63,7 +63,9 @@ export default {
       'BLChangeChatFetchStatus',
       'BLAddMessage',
       'BLConnectMessageSocket',
-      'BLRemoveActiveConversation'
+      'BLRemoveActiveConversation',
+      'BLRemoveFromUnreadConversations',
+      'BLSeenOnFocus'
     ]),
     handleSendMSG() {
       const data = {
@@ -83,7 +85,20 @@ export default {
           this.userMessage = ''
         })
       }
-    }
+    },
+    handleFocus() {
+      if (this.BlueChat.unreadConversations.includes(this.BlueChat.conversation_id)) {
+        this.BLRemoveFromUnreadConversations(this.BlueChat.conversation_id)
+      }
+      if(this.BlueChat.messages[this.BlueChat.messages.length - 1]){
+        if(this.Authentication.userResponse.id != this.BlueChat.messages[this.BlueChat.messages.length - 1].sender_id){
+          this.$http.post(openConversation, {conversation_id: this.BlueChat.conversation_id, }).then(response => {
+          }, () => {
+          })
+          this.BLSeenOnFocus(this.BlueChat.conversation_id)
+        }
+      }
+    },
   },
   components: {
     AppComponentLoader: ComponentLoader

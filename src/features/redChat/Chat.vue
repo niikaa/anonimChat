@@ -23,7 +23,7 @@
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
         <v-layout row>
           <v-flex xs-12>
-            <input v-model="userMessage" type="text" class="chat-input" >
+            <input v-model="userMessage" type="text" class="chat-input" @focus="handleFocus()">
             <div class="overed-rows">
               <v-btn type="button" flat icon color="red lighten-1" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
@@ -40,7 +40,7 @@
 import { mapState, mapActions } from 'vuex'
 import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendMessage } from '../../constants'
+import { sendMessage, openConversation } from '../../constants'
 import socket from '../../socket'
 export default {
   mixins:[ConvMixin],
@@ -63,7 +63,9 @@ export default {
       'RDChangeChatFetchStatus',
       'RDAddMessage',
       'RDConnectMessageSocket',
-      'RDRemoveActiveConversation'
+      'RDRemoveActiveConversation',
+      'RDRemoveFromUnreadConversations',
+      'RDSeenOnFocus'
     ]),
     handleSendMSG() {
       const data = {
@@ -83,7 +85,21 @@ export default {
           this.userMessage = ''
         })
       }
-    }
+    },
+    handleFocus() {
+      this.RDSeenOnFocus(this.RedChat.conversation_id)
+      if (this.RedChat.unreadConversations.includes(this.RedChat.conversation_id)) {
+        this.RDRemoveFromUnreadConversations(this.RedChat.conversation_id)
+      }
+      if(this.RedChat.messages[this.RedChat.messages.length - 1]){
+        if(this.Authentication.userResponse.id != this.RedChat.messages[this.RedChat.messages.length - 1].sender_id){
+          this.$http.post(openConversation, {conversation_id: this.RedChat.conversation_id, }).then(response => {
+          }, () => {
+          })
+          this.RDSeenOnFocus(this.RedChat.conversation_id)
+        }
+      }
+    },
   },
   components: {
     AppComponentLoader: ComponentLoader

@@ -93,7 +93,15 @@ const mutations =  {
     if (index > -1) {
       state.unreadConversations.splice(index, 1);
     }
-  }
+  },
+  BLSeenOnFocus(state, payload) {
+    for(let i = 0; i < state.conversations.length; i++){
+      if(state.conversations[i]._id == payload){
+        state.conversations[i].messages[state.conversations[i].messages.length - 1].seen = true
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -157,6 +165,9 @@ const actions = {
   BLRemoveFromUnreadConversations:({commit}, payload) => {
     commit('BLRemoveFromUnreadConversations', payload)
   },
+  BLSeenOnFocus:({commit}, payload) => {
+    commit('BLSeenOnFocus', payload)
+  }
 }
 
 export default {

@@ -50,7 +50,6 @@ export default {
   props: ['data', 'type'],
   data() {
     return {
-      seen: false,
       iAmInitiator:false,
       iAmTarget:false,
       convGender: null,
@@ -66,8 +65,12 @@ export default {
       'GreenChat',
       'BlueChat',
       'RedChat'
-    ])
+    ]),
+    seen(){
+      return this.data.messages[this.data.messages.length - 1].seen
+    }
   },
+
   methods: {
     ...mapActions([
       'GRSetConversation',
@@ -104,55 +107,31 @@ export default {
         this.$http.post(openConversation, {conversation_id: this.data._id, }).then(response => {
           if (response.body.status === 200) {
             this.data.messages[this.data.messages.length - 1].seen = true;
-            this.seen = true;
           }
         }, () => {
         })
       }
+    },
+    processSeen(){
+      if(this.Authentication.userResponse.id == this.data.messages[this.data.messages.length - 1].sender_id){
+        this.data.messages[this.data.messages.length - 1].seen = true;
+      }
+      if(this.data.initiator_id == this.Authentication.userResponse.id){
+        this.iAmInitiator = true
+        this.iAmTarget = false
+        this.convGender = this.data.target_gender
+      }else if(this.data.target_id == this.Authentication.userResponse.id){
+        this.iAmTarget = true
+        this.iAmInitiator = false;
+        this.convGender = this.data.initiator_gender;
+      }
     }
   },
   beforeMount(){
-    if(this.Authentication.userResponse.id == this.data.messages[this.data.messages.length - 1].sender_id){
-      this.seen = true;
-    }else{
-      this.seen = this.data.messages[this.data.messages.length - 1].seen;
-    }
-    if(this.data.initiator_id == this.Authentication.userResponse.id){
-      this.iAmInitiator = true
-      this.iAmTarget = false
-      this.convGender = this.data.target_gender
-    }else if(this.data.target_id == this.Authentication.userResponse.id){
-      this.iAmTarget = true
-      this.iAmInitiator = false;
-      this.convGender = this.data.initiator_gender;
-    }
+    this.processSeen();
   },
   updated() {
-    if(this.data.initiator_id == this.Authentication.userResponse.id){
-      this.iAmInitiator = true
-      this.iAmTarget = false
-      this.convGender = this.data.target_gender
-    }else if(this.data.target_id == this.Authentication.userResponse.id){
-      this.iAmTarget = true
-      this.iAmInitiator = false;
-      this.convGender = this.data.initiator_gender;
-    }
-
-    if(this.Authentication.userResponse.id == this.data.messages[this.data.messages.length - 1].sender_id){
-      this.seen = true;
-    }
-    else{
-      if(this.type == 'green'){
-        if(this.GreenChat.conversation_id != this.data._id)
-        this.seen = this.data.messages[this.data.messages.length - 1].seen;
-      }else if(this.type == 'blue'){
-        if(this.BlueChat.conversation_id != this.data._id)
-        this.seen = this.data.messages[this.data.messages.length - 1].seen;
-      }else if(this.type == 'red'){
-        if(this.RedChat.conversation_id != this.data._id)
-        this.seen = this.data.messages[this.data.messages.length - 1].seen;
-      }
-    }
+    this.processSeen();
   },
 }
 </script>

@@ -64,19 +64,20 @@ export default {
       'GRAddMessage',
       'GRConnectMessageSocket',
       'GRRemoveActiveConversation',
-      'GRRemoveFromUnreadConversations'
+      'GRRemoveFromUnreadConversations',
+      'GRSeenOnFocus'
     ]),
     handleFocus() {
       if (this.GreenChat.unreadConversations.includes(this.GreenChat.conversation_id)) {
         this.GRRemoveFromUnreadConversations(this.GreenChat.conversation_id)
       }
-      if(this.Authentication.userResponse.id != this.GreenChat.messages[this.GreenChat.messages.length - 1].sender_id){
-        this.$http.post(openConversation, {conversation_id: this.GreenChat.conversation_id, }).then(response => {
-          if (response.body.status === 200) {
-            this.GreenChat.messages[this.GreenChat.messages.length - 1].seen = true;
-          }
-        }, () => {
-        })
+      if(this.GreenChat.messages[this.GreenChat.messages.length - 1]){
+        if(this.Authentication.userResponse.id != this.GreenChat.messages[this.GreenChat.messages.length - 1].sender_id){
+          this.$http.post(openConversation, {conversation_id: this.GreenChat.conversation_id, }).then(response => {
+          }, () => {
+          })
+          this.GRSeenOnFocus(this.GreenChat.conversation_id)
+        }
       }
     },
     handleSendMSG() {

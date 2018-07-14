@@ -93,7 +93,15 @@ const mutations =  {
     if (index > -1) {
       state.unreadConversations.splice(index, 1);
     }
-  }
+  },
+  GRSeenOnFocus(state, payload) {
+    for(let i = 0; i < state.conversations.length; i++){
+      if(state.conversations[i]._id == payload){
+        state.conversations[i].messages[state.conversations[i].messages.length - 1].seen = true
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -156,6 +164,9 @@ const actions = {
   },
   GRRemoveFromUnreadConversations:({commit}, payload) => {
     commit('GRRemoveFromUnreadConversations', payload)
+  },
+  GRSeenOnFocus:({commit}, payload) => {
+    commit('GRSeenOnFocus', payload)
   },
 }
 
