@@ -82,17 +82,16 @@ const mutations =  {
   BLSetLoading(state, payload) {
     state.loading = payload
   },
-  RDSetUnreadConversations(state, payload) {
+  BLSetUnreadConversations(state, payload) {
     state.unreadConversations = payload
   },
-  RDAddIntoUnreadConversations(state, payload) {
+  BLAddIntoUnreadConversations(state, payload) {
     state.unreadConversations.push(payload)
   },
-  RDARemoveFromUnreadConversations(state, payload) {
-    for(var i = state.unreadConversations.length - 1; i >= 0; i--) {
-      if(state.unreadConversations[payload] === number) {
-        state.unreadConversations.splice(payload, 1);
-      }
+  BLRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
     }
   }
 }
@@ -149,14 +148,14 @@ const actions = {
   BLSetLoading:({commit}, payload) => {
     commit('BLSetLoading', payload)
   },
-  RDSetUnreadConversations:({commit}, payload) => {
-    commit('RDSetUnreadConversations', payload)
+  BLSetUnreadConversations:({commit}, payload) => {
+    commit('BLSetUnreadConversations', payload)
   },
-  RDAddIntoUnreadConversations:({commit}, payload) => {
-    commit('RDAddIntoUnreadConversations', payload)
+  BLAddIntoUnreadConversations:({commit}, payload) => {
+    commit('BLAddIntoUnreadConversations', payload)
   },
-  RDARemoveFromUnreadConversations:({commit}, payload) => {
-    commit('RDARemoveFromUnreadConversations', payload)
+  BLRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('BLRemoveFromUnreadConversations', payload)
   },
 }
 

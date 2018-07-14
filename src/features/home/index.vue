@@ -6,7 +6,7 @@
           <h3 class="ann-h3">Green chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="red" class="separated-badge">
-              <span slot="badge">2</span>
+              <span slot="badge">{{GreenChat.unreadConversations.length}}</span>
               <v-icon large color="grey lighten-4" >
                 chat
               </v-icon>
@@ -30,7 +30,7 @@
           <h3 class="ann-h3">Blue chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="red" class="separated-badge">
-              <span slot="badge">2</span>
+              <span slot="badge">{{BlueChat.unreadConversations.length}}</span>
               <v-icon large color="grey lighten-4" >
                 chat
               </v-icon>
@@ -54,7 +54,7 @@
           <h3 class="ann-h3">Red chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="blue lighten-2" class="separated-badge">
-              <span slot="badge">2</span>
+              <span slot="badge">{{RedChat.unreadConversations.length}}</span>
               <v-icon large color="grey lighten-4" >
                 chat
               </v-icon>
@@ -99,8 +99,17 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 
 export default {
+  computed: {
+    ...mapState([
+      'Authentication',
+      'BlueChat',
+      'RedChat',
+      'GreenChat'
+    ])
+  },
   methods: {
     redirectToGreenChat(){
       this.$router.push({name: 'GreenChat'})

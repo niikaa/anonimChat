@@ -60,12 +60,14 @@ export default {
       }
     }
   },
-  computed: mapState ([
-    'Authentication',
-    'GreenChat',
-    'BlueChat',
-    'RedChat'
-  ]),
+  computed: {
+    ...mapState ([
+      'Authentication',
+      'GreenChat',
+      'BlueChat',
+      'RedChat'
+    ])
+  },
   methods: {
     ...mapActions([
       'GRSetConversation',
@@ -73,18 +75,30 @@ export default {
       'BLSetConversation',
       'BLAddConversationMessages',
       'RDSetConversation',
-      'RDAddConversationMessages'
+      'RDAddConversationMessages',
+      'GRRemoveFromUnreadConversations',
+      'BLRemoveFromUnreadConversations',
+      'RDRemoveFromUnreadConversations'
     ]),
     handleClick(){
       if(this.type == 'green'){
         this.GRSetConversation(this.data._id)
         this.GRAddConversationMessages(this.data.messages)
+        if (this.GreenChat.unreadConversations.includes(this.data._id)) {
+          this.GRRemoveFromUnreadConversations(this.data._id)
+        }
       }else if(this.type == 'blue'){
         this.BLSetConversation(this.data._id)
         this.BLAddConversationMessages(this.data.messages)
+        if (this.BlueChat.unreadConversations.includes(this.data._id)) {
+          this.BLRemoveFromUnreadConversations(this.data._id)
+        }
       }else if(this.type == 'red'){
         this.RDSetConversation(this.data._id)
         this.RDAddConversationMessages(this.data.messages)
+        if (this.RedChat.unreadConversations.includes(this.data._id)) {
+          this.RDRemoveFromUnreadConversations(this.data._id)
+        }
       }
       if(this.Authentication.userResponse.id != this.data.messages[this.data.messages.length - 1].sender_id){
         this.$http.post(openConversation, {conversation_id: this.data._id, }).then(response => {
@@ -113,7 +127,6 @@ export default {
       this.convGender = this.data.initiator_gender;
     }
   },
-
   updated() {
     if(this.data.initiator_id == this.Authentication.userResponse.id){
       this.iAmInitiator = true

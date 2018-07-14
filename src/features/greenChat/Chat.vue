@@ -23,7 +23,7 @@
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
         <v-layout row>
           <v-flex xs-12>
-            <input v-model="userMessage" type="text" class="chat-input" >
+            <input v-model="userMessage" type="text" class="chat-input" @focus="handleFocus()" >
             <div class="overed-rows">
               <v-btn type="button" flat icon color="green lighten-1" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
@@ -40,7 +40,7 @@
 import { mapState, mapActions } from 'vuex'
 import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendMessage } from '../../constants'
+import { sendMessage, openConversation } from '../../constants'
 import socket from '../../socket'
 export default {
   mixins:[ConvMixin],
@@ -63,8 +63,22 @@ export default {
       'GRChangeChatFetchStatus',
       'GRAddMessage',
       'GRConnectMessageSocket',
-      'GRRemoveActiveConversation'
+      'GRRemoveActiveConversation',
+      'GRRemoveFromUnreadConversations'
     ]),
+    handleFocus() {
+      if (this.GreenChat.unreadConversations.includes(this.GreenChat.conversation_id)) {
+        this.GRRemoveFromUnreadConversations(this.GreenChat.conversation_id)
+      }
+      if(this.Authentication.userResponse.id != this.GreenChat.messages[this.GreenChat.messages.length - 1].sender_id){
+        this.$http.post(openConversation, {conversation_id: this.GreenChat.conversation_id, }).then(response => {
+          if (response.body.status === 200) {
+            this.GreenChat.messages[this.GreenChat.messages.length - 1].seen = true;
+          }
+        }, () => {
+        })
+      }
+    },
     handleSendMSG() {
       const data = {
         conversation_id: this.GreenChat.conversation_id,

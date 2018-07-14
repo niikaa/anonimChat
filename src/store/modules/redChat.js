@@ -88,11 +88,10 @@ const mutations =  {
   RDAddIntoUnreadConversations(state, payload) {
     state.unreadConversations.push(payload)
   },
-  RDARemoveFromUnreadConversations(state, payload) {
-    for(var i = state.unreadConversations.length - 1; i >= 0; i--) {
-      if(state.unreadConversations[payload] === number) {
-        state.unreadConversations.splice(payload, 1);
-      }
+  RDRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
     }
   }
 }
@@ -155,8 +154,8 @@ const actions = {
   RDAddIntoUnreadConversations:({commit}, payload) => {
     commit('RDAddIntoUnreadConversations', payload)
   },
-  RDARemoveFromUnreadConversations:({commit}, payload) => {
-    commit('RDARemoveFromUnreadConversations', payload)
+  RDRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('RDRemoveFromUnreadConversations', payload)
   },
 }
 

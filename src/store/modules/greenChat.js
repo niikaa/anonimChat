@@ -88,11 +88,10 @@ const mutations =  {
   GRAddIntoUnreadConversations(state, payload) {
     state.unreadConversations.push(payload)
   },
-  GRARemoveFromUnreadConversations(state, payload) {
-    for(var i = state.unreadConversations.length - 1; i >= 0; i--) {
-      if(state.unreadConversations[payload] === number) {
-        state.unreadConversations.splice(payload, 1);
-      }
+  GRRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
     }
   }
 }
@@ -155,8 +154,8 @@ const actions = {
   GRAddIntoUnreadConversations:({commit}, payload) => {
     commit('GRAddIntoUnreadConversations', payload)
   },
-  GRARemoveFromUnreadConversations:({commit}, payload) => {
-    commit('GRARemoveFromUnreadConversations', payload)
+  GRRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('GRRemoveFromUnreadConversations', payload)
   },
 }
 
