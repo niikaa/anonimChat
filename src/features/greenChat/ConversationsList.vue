@@ -11,7 +11,7 @@
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
               <template v-for="(item, index) in GreenChat.conversations">
-                <AppConversation :key="index" :data="item" :type="'green'" ></AppConversation>
+                <AppGreenConversation :key="index" :data="item" ></AppGreenConversation>
               </template>
           </div>
         </div>
@@ -21,7 +21,7 @@
 
 <script>
 import ConvMixin from '../mixins/conversations'
-import Conversation from '../components/Conversation'
+import GreenConversation from '../components/Conversations/greenConv.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: {
-    AppConversation: Conversation
+    AppGreenConversation: GreenConversation
   },
   computed: {
     ...mapState ([

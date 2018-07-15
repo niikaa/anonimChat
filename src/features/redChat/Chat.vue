@@ -87,7 +87,6 @@ export default {
       }
     },
     handleFocus() {
-      this.RDSeenOnFocus(this.RedChat.conversation_id)
       if (this.RedChat.unreadConversations.includes(this.RedChat.conversation_id)) {
         this.RDRemoveFromUnreadConversations(this.RedChat.conversation_id)
       }
