@@ -17,7 +17,6 @@ h4 {
   letter-spacing: 2px;
   margin-top: 20px;
 }
-
 /*##############################Usefull-classes##############################*/
 .color-green-lighten {
   color: #66bb6a!important;
@@ -132,6 +131,12 @@ h4 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.emoji-invoker {
+  position: fixed; 
+  bottom: 14px;
+  right: 270px;
+  z-index: 99999;
+}
 
 @media only screen and (max-width: 1264px) {
   .ann-h1 {
@@ -142,6 +147,12 @@ h4 {
   .ann-under-h1 {
     font-size: 22px;
     letter-spacing: 0.1px;
+  }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 270px;
+    z-index: 99999;
   }
 }
 
@@ -160,6 +171,12 @@ h4 {
     letter-spacing: 2px;
     margin-bottom: 30px;
   }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 270px;
+    z-index: 99999;
+  }
 }
 
 @media only screen and (max-width: 760px) {
@@ -177,6 +194,12 @@ h4 {
     text-align: center;
     letter-spacing: 1px;
     margin-bottom: 20px;
+  }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 90px;
+    z-index: 99999;
   }
 }
 
@@ -204,6 +227,12 @@ h4 {
       padding-top: 50px;
       padding-bottom: 50px
   }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 270px;
+    z-index: 99999;
+  }
 }
 
 @media only screen and (max-width: 959px) {
@@ -215,6 +244,12 @@ h4 {
       background: #ecf0f1 !important;
       padding-top: 30px;
       padding-bottom: 30px
+  }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 270px;
+    z-index: 99999;
   }
 }
 
@@ -290,6 +325,12 @@ h4 {
 @media only screen and (max-width: 960px) {
   .main-pad {
     padding-top: 60px;
+  }
+  .emoji-invoker {
+    position: fixed; 
+    bottom: 14px;
+    right: 270px;
+    z-index: 99999;
   }
 }
 
@@ -686,7 +727,7 @@ h4 {
     border-top: 1px solid #ecf0f1;
   }
   .chat-input{
-    width: 100%;
+    width: 81%;
     height: 60px;
     padding: 10px 15px;
     background: transparent;
@@ -696,7 +737,7 @@ h4 {
   .overed-rows {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 55px;
     background: white;
   }
   .chat-container {
@@ -754,6 +795,12 @@ h4 {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .emoji-invoker {
+      position: fixed; 
+      bottom: 14px;
+      right: 90px;
+      z-index: 99999;
+    }
   }
   /*##############################ACTIVE-FRIEND-CARD##############################*/
   .fr-card-avatar {
@@ -787,6 +834,12 @@ h4 {
     .ch-card-description {
       padding: 0 5%;
       font-size: 16px;
+    }
+    .emoji-invoker {
+      position: fixed; 
+      bottom: 14px;
+      right: 90px;
+      z-index: 99999;
     }
   }
 
@@ -992,10 +1045,30 @@ h4 {
     margin: 16px;
   }
   @media only screen and (max-width: 875px) {
+    .emoji-invoker {
+      position: fixed; 
+      bottom: 14px;
+      right: 90px;
+      z-index: 99999;
+    }
     #wrapper {
       display: none;
     }
     #spinner-mobile-btn {
       display: block;
     }
+  }
+  .emojis-container {
+    zoom: 200%;
+    width: 36%;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: center;
+    background-color: white;
+    position: fixed;
+    bottom: 32px;
+    box-shadow: 1px 1px 5px 1px #bdbdbd;
+    border-radius: 5px;
+    right: 125px;
   }
