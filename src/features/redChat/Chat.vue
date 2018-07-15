@@ -1,5 +1,6 @@
 <template>
   <div v-if="RedChat.conversation_id" class="fill-area">
+  <audio ref="redmessagesound" src="/static/sounds/intuition.mp3"></audio>
     <AppComponentLoader v-if="RedChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Friend info
@@ -116,8 +117,12 @@ export default {
     if(!this.RedChat.messageSocketConnected){
       socket.on('RED_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForRed(data.conversation_id)
-        if(this.RedChat.conversation_id == data.conversation_id)
+        if(this.RedChat.conversation_id == data.conversation_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id) {
+            this.$refs.redmessagesound.play()
+          }
           this.RDAddMessage(data)
+        }
       })
       this.RDConnectMessageSocket();
     }

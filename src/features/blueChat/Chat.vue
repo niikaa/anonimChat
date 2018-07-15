@@ -1,5 +1,6 @@
 <template>
   <div v-if="BlueChat.conversation_id" class="fill-area">
+    <audio ref="bluemessagesound" src="/static/sounds/intuition.mp3"></audio>
     <AppComponentLoader v-if="BlueChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Friend info
@@ -78,7 +79,6 @@ export default {
         this.$http.post(sendMessage, {data}).then(response => {
           if (response.body.status === 200) {
             socket.emit('SEND_BLUE_CHAT_MESSAGE', {message: response.body.message, initTargets: response.body.initTargets, targetTargets: response.body.targetTargets, conversation_id: this.BlueChat.conversation_id })
-            // socket.emit('SEND_RED_CHAT_MESSAGE', {message: response.body.message, targets: response.body.targets, conversation_id: this.BlueChat.conversation_id })
           } else {
           }
         }, () => {
@@ -116,8 +116,12 @@ export default {
     if(!this.BlueChat.messageSocketConnected){
       socket.on('BLUE_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForBlue(data.conversation_id)
-        if(this.BlueChat.conversation_id == data.conversation_id)
+        if(this.BlueChat.conversation_id == data.conversation_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id) {
+            this.$refs.bluemessagesound.play()
+          }
           this.BLAddMessage(data)
+        }
       })
       this.BLConnectMessageSocket();
     }

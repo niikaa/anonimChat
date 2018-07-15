@@ -1,5 +1,6 @@
 <template>
   <div v-if="GreenChat.conversation_id" class="fill-area">
+    <audio ref="greenmessagesound" src="/static/sounds/intuition.mp3"></audio>
     <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Friend info
@@ -115,8 +116,12 @@ export default {
     if(!this.GreenChat.messageSocketConnected){
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForGreen(data.conversation_id)
-        if(this.GreenChat.conversation_id == data.conversation_id)
+        if(this.GreenChat.conversation_id == data.conversation_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id) {
+            this.$refs.greenmessagesound.play()
+          }
           this.GRAddMessage(data)
+        }
       })
       this.GRConnectMessageSocket();
     }
