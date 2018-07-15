@@ -1,6 +1,6 @@
 <template>
   <div class="not-container" ref="notcontainer">
-
+    <audio ref="notificaionSound" src="/static/sounds/notificaionSound.mp3"></audio>
   </div>
 </template>
 
@@ -51,10 +51,16 @@ export default {
   },
   methods: {
     createNotification(id, message, sender_id, color) {
+      this.$refs.notificaionSound.play()
       this.renderedNotifications.push(id)
       const ComponentClass = Vue.extend(GreenNotifications)
       var instance = new ComponentClass({
-          propsData: { text: message, img: sender_id ? 'https://graph.facebook.com/' + sender_id + '/picture' : null, header: 'New message', id: id, color: color }
+          propsData: {
+            text: message,
+            img: sender_id ? 'https://graph.facebook.com/' + sender_id + '/picture' : null,
+            header: 'New message',
+            id: id,
+            color: color }
       })
       instance.$mount()
       this.$refs.notcontainer.appendChild(instance.$el)

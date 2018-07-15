@@ -24,16 +24,10 @@
 <script>
 export default {
   props:['text', 'img', 'header', 'id', 'color'],
-  data() {
-    return {
+  methods: {
+    onClick() {
 
     }
-  },
-  computed: {
-
-  },
-  methods: {
-
   }
 }
 </script>
