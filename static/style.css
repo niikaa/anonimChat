@@ -727,7 +727,7 @@ h4 {
     border-top: 1px solid #ecf0f1;
   }
   .chat-input{
-    width: 81%;
+    width: calc(100% - 110px);
     height: 60px;
     padding: 10px 15px;
     background: transparent;
