@@ -10,7 +10,7 @@
         <v-list-tile-title class="dark-text">{{ data.messages[data.messages.length - 1].chat_message }}</v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
-    <div class="conversation_date">Date: {{data.date}}</div>
+    <div class="conversation_date">Date: {{longDate(data.date)}}</div>
     </div>
 </div>
 </template>
@@ -18,8 +18,10 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { openConversation, openBlueConversation } from '../../../constants'
+import DateMixin from '../../mixins/date'
 export default {
   props: ['data'],
+  mixins: [DateMixin],
   data() {
     return {
       iAmInitiator:false,
