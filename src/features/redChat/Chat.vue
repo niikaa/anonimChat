@@ -3,14 +3,14 @@
   <audio ref="redmessagesound" src="/static/sounds/intuition.mp3"></audio>
     <AppComponentLoader v-if="RedChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
-      Friend info
+      Messages
     </v-subheader>
 
     <emoji-picker @emoji="insert" :search="search">
         <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
             <button type="button" style="zoom: 250%; color: red">&#9786</button>
         </div>
-        
+
         <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
             <div>
                 <div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        
+
     </emoji-picker>
 
 

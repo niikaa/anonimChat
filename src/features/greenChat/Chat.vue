@@ -4,7 +4,7 @@
 
     <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
-      Friend info
+      Messages
     </v-subheader>
 
     <emoji-picker @emoji="insert" :search="search">

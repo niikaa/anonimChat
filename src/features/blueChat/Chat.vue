@@ -3,14 +3,14 @@
     <audio ref="bluemessagesound" src="/static/sounds/intuition.mp3"></audio>
     <AppComponentLoader v-if="BlueChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
-      Friend info
+      Messages
     </v-subheader>
 
     <emoji-picker @emoji="insert" :search="search">
         <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
             <button type="button" style="zoom: 250%; color: #42a5f5">&#9786</button>
         </div>
-        
+
         <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
             <div>
                 <div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        
+
     </emoji-picker>
 
 

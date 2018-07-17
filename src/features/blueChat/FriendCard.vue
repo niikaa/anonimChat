@@ -40,7 +40,7 @@
       <v-layout row>
         <v-flex xs-12 class="ann-centered overfl-hddn">
           <v-btn color="blue light-txt-bold" @click="handleStart()">
-            <v-icon left>chat</v-icon>
+            <v-icon left>chat_bubble_outline</v-icon>
             Start
           </v-btn>
         </v-flex>
