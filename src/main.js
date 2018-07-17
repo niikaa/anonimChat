@@ -5,8 +5,10 @@ import Vuetify from 'vuetify'
 import VueResource from 'vue-resource'
 import { store } from './store'
 import infiniteScroll from 'vue-infinite-scroll';
+import { EmojiPickerPlugin } from 'vue-emoji-picker'
 
-Vue.use(VueResource);
+Vue.use(EmojiPickerPlugin)
+Vue.use(VueResource)
 
 Vue.use(Vuetify, {
   theme: {

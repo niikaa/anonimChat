@@ -5,6 +5,39 @@
     <v-subheader class="subheader dark-text">
       Friend info
     </v-subheader>
+
+    <emoji-picker @emoji="insert" :search="search">
+        <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
+            <button type="button" style="zoom: 250%; color: #42a5f5">&#9786</button>
+        </div>
+        
+        <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+            <div>
+                <div>
+                    <input type="text" v-model="search">
+                </div>
+                <div>
+                    <div v-for="(emojiGroup, category) in emojis" :key="category">
+                        <div v-if="category == 'People' || category == 'Nature' || category == 'Objects'">
+                          <h5>{{ category }}</h5>
+                          <div>
+                              <span
+                                  v-for="(emoji, emojiName) in emojiGroup"
+                                  :key="emojiName"
+                                  @click="insert(emoji)"
+                                  :title="emojiName"
+                                  style="cursor:pointer"
+                              >{{ emoji }}</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </emoji-picker>
+
+
     <v-divider class="divider light-background"></v-divider>
     <div class="chat-container" id="ablaku">
         <v-layout row v-for="(item, index) in BlueChat.messages" :key="index">
@@ -43,12 +76,18 @@ import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendMessage , openConversation} from '../../constants'
 import socket from '../../socket'
+import EmojiPicker from 'vue-emoji-picker'
+
 export default {
   mixins:[ConvMixin],
   data() {
     return {
-      userMessage: ''
+      userMessage: '',
+      search: ''
     }
+  },
+  components: {
+    EmojiPicker,
   },
   computed: {
     ...mapState([
@@ -68,6 +107,9 @@ export default {
       'BLRemoveFromUnreadConversations',
       'BLSeenOnFocus'
     ]),
+    insert(emoji) {
+      this.userMessage += emoji
+    },
     handleSendMSG() {
       const data = {
         conversation_id: this.BlueChat.conversation_id,
