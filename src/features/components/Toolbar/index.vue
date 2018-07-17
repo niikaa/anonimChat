@@ -2,22 +2,27 @@
   <v-toolbar fixed dark :color="tColor">
     <v-toolbar-title class="white--text">Anonim chat</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToGreenChat">
+    <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToHome">
+      <v-badge right color="green lighten-1">
+         <v-icon>list_alt</v-icon>
+      </v-badge>
+    </v-btn>
+    <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToGreenChat">
       <v-badge right color="green lighten-1">
         <span v-if="GreenChat.unreadConversations.length > 0" slot="badge">{{GreenChat.unreadConversations.length }}</span>
-        <span>Green</span>
+        <v-icon>chat_bubble</v-icon>
       </v-badge>
     </v-btn>
-    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToBlueChat">
+    <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToBlueChat">
       <v-badge right color="blue lighten-1">
         <span v-if="BlueChat.unreadConversations.length > 0" slot="badge">{{BlueChat.unreadConversations.length }}</span>
-        <span>Blue</span>
+        <v-icon>chat_bubble_outline</v-icon>
       </v-badge>
     </v-btn>
-    <v-btn v-if="Authentication.isLoggedIn" flat small @click="redirectToRedChat">
+    <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToRedChat">
       <v-badge right color="red lighten-1">
         <span v-if="RedChat.unreadConversations.length > 0" slot="badge">{{RedChat.unreadConversations.length }}</span>
-        <span>Red</span>
+        <v-icon>chat</v-icon>
       </v-badge>
     </v-btn>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">
@@ -100,6 +105,9 @@ export default {
     },
     redirectToRedChat(){
       this.$router.push({name: 'RedChat'})
+    },
+    redirectToHome(){
+      this.$router.push({name: 'Home'})
     },
     getNotifications(fb_id){
       this.$http.get(getNotifications, {params: {fb_id: fb_id}}).then(response => {
