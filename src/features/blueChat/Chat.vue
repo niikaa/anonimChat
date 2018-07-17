@@ -11,7 +11,7 @@
         </v-btn>
       </div>
     </v-subheader>
-    <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
+    <AppEmojiComponent v-model="userMessage" :userMessage="userMessage" color="#42a5f5"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
     <div class="chat-container" id="ablaku">
       <v-layout row v-for="(item, index) in BlueChat.messages" :key="index">

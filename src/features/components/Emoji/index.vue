@@ -1,7 +1,7 @@
 <template>
   <emoji-picker @emoji="insert" :search="search">
       <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
-        <button type="button" style="zoom: 250%; color: green">&#9786</button>
+        <button type="button" :style="'zoom: 250%; color:' + color ">&#9786</button>
       </div>
       <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
         <div>
@@ -33,7 +33,7 @@
 import EmojiPicker from 'vue-emoji-picker'
 import Emojis from './emojis'
 export default {
-  props: ['userMessage'],
+  props: ['userMessage', 'color'],
   data() {
     return {
       search: 's'
