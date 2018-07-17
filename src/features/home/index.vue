@@ -8,7 +8,7 @@
             <v-badge overlap color="red" class="separated-badge">
               <span slot="badge">{{GreenChat.unreadConversations.length}}</span>
               <v-icon large color="grey lighten-4" >
-                chat
+                chat_bubble
               </v-icon>
             </v-badge>
             <v-badge overlap color="red" class="separated-badge">
@@ -32,7 +32,7 @@
             <v-badge overlap color="red" class="separated-badge">
               <span slot="badge">{{BlueChat.unreadConversations.length}}</span>
               <v-icon large color="grey lighten-4" >
-                chat
+                chat_bubble_outline
               </v-icon>
             </v-badge>
             <v-badge overlap color="red" class="separated-badge">
