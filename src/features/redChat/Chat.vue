@@ -4,6 +4,12 @@
     <AppComponentLoader v-if="RedChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Messages
+      <div class="message-sound-btn">
+        <v-btn flat icon color="red lighten-1" @click="changeNotificationSound()">
+          <v-icon v-if="notificationSound">music_note</v-icon>
+          <v-icon v-else>music_off</v-icon>
+        </v-btn>
+      </div>
     </v-subheader>
     <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
@@ -50,6 +56,7 @@ export default {
   data() {
     return {
       userMessage: '',
+      notificationSound: true
     }
   },
   computed: {
@@ -70,6 +77,9 @@ export default {
       'RDRemoveFromUnreadConversations',
       'RDSeenOnFocus'
     ]),
+    changeNotificationSound() {
+      this.notificationSound = !this.notificationSound
+    },
     handleSendMSG() {
       const data = {
         conversation_id: this.RedChat.conversation_id,
@@ -121,7 +131,7 @@ export default {
       socket.on('RED_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForRed(data.conversation_id)
         if(this.RedChat.conversation_id == data.conversation_id) {
-          if (this.Authentication.userResponse.id !== data.sender_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id && this.notificationSound) {
             this.$refs.redmessagesound.play()
           }
           this.RDAddMessage(data)

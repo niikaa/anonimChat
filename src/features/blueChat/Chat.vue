@@ -4,6 +4,12 @@
     <AppComponentLoader v-if="BlueChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Messages
+      <div class="message-sound-btn">
+        <v-btn flat icon color="blue lighten-1" @click="changeNotificationSound()">
+          <v-icon v-if="notificationSound">music_note</v-icon>
+          <v-icon v-else>music_off</v-icon>
+        </v-btn>
+      </div>
     </v-subheader>
     <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
@@ -49,7 +55,8 @@ export default {
   mixins:[ConvMixin],
   data() {
     return {
-      userMessage: ''
+      userMessage: '',
+      notificationSound: true
     }
   },
   computed: {
@@ -70,6 +77,9 @@ export default {
       'BLRemoveFromUnreadConversations',
       'BLSeenOnFocus'
     ]),
+    changeNotificationSound() {
+      this.notificationSound = !this.notificationSound
+    },
     handleSendMSG() {
       const data = {
         conversation_id: this.BlueChat.conversation_id,
@@ -120,7 +130,7 @@ export default {
       socket.on('BLUE_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForBlue(data.conversation_id)
         if(this.BlueChat.conversation_id == data.conversation_id) {
-          if (this.Authentication.userResponse.id !== data.sender_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id && this.notificationSound) {
             this.$refs.bluemessagesound.play()
           }
           this.BLAddMessage(data)

@@ -4,6 +4,12 @@
     <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Messages
+      <div class="message-sound-btn">
+        <v-btn flat icon color="green lighten-1" @click="changeNotificationSound()">
+          <v-icon v-if="notificationSound">music_note</v-icon>
+          <v-icon v-else>music_off</v-icon>
+        </v-btn>
+      </div>
     </v-subheader>
     <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
@@ -49,7 +55,8 @@ export default {
   mixins:[ConvMixin],
   data() {
     return {
-      userMessage: ''
+      userMessage: '',
+      notificationSound: true
     }
   },
   computed: {
@@ -70,6 +77,9 @@ export default {
       'GRRemoveFromUnreadConversations',
       'GRSeenOnFocus'
     ]),
+    changeNotificationSound() {
+      this.notificationSound = !this.notificationSound
+    },
     handleFocus() {
       if (this.GreenChat.unreadConversations.includes(this.GreenChat.conversation_id)) {
         this.GRRemoveFromUnreadConversations(this.GreenChat.conversation_id)
@@ -120,7 +130,7 @@ export default {
       socket.on('GREEN_CHAT_MSG_RECEIVE', (data) => {
         this.manageNewConversationForGreen(data.conversation_id)
         if(this.GreenChat.conversation_id == data.conversation_id) {
-          if (this.Authentication.userResponse.id !== data.sender_id) {
+          if (this.Authentication.userResponse.id !== data.sender_id && this.notificationSound) {
             this.$refs.greenmessagesound.play()
           }
           this.GRAddMessage(data)
