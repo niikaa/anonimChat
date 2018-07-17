@@ -1,65 +1,31 @@
 <template>
   <div v-if="GreenChat.conversation_id" class="fill-area">
     <audio ref="greenmessagesound" src="/static/sounds/intuition.mp3"></audio>
-
     <AppComponentLoader v-if="GreenChat.conversation_isFetching"></AppComponentLoader>
     <v-subheader class="subheader dark-text">
       Messages
     </v-subheader>
-
-    <emoji-picker @emoji="insert" :search="search">
-        <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
-            <button type="button" style="zoom: 250%; color: green">&#9786</button>
-        </div>
-
-        <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-            <div>
-                <div>
-                    <input type="text" v-model="search">
-                </div>
-                <div>
-                    <div v-for="(emojiGroup, category) in emojis" :key="category">
-                        <div v-if="category == 'People' || category == 'Nature' || category == 'Objects'">
-                          <h5>{{ category }}</h5>
-                          <div>
-                              <span
-                                  v-for="(emoji, emojiName) in emojiGroup"
-                                  :key="emojiName"
-                                  @click="insert(emoji)"
-                                  :title="emojiName"
-                                  style="cursor:pointer"
-                              >{{ emoji }}</span>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </emoji-picker>
-
+    <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
     <div class="chat-container" id="ablaku">
-        <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
-          <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
-            <div class="chat-my-msg color-green-lighten-background">
-              {{item.chat_message}}
-            </div>
-          </v-flex>
-          <v-flex xs-12 v-else>
-            <div class="chat-partner-msg">
-              {{item.chat_message}}
-            </div>
-          </v-flex>
-        </v-layout>
+      <v-layout row v-for="(item, index) in GreenChat.messages" :key="index">
+        <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
+          <div class="chat-my-msg color-green-lighten-background">
+            {{item.chat_message}}
+          </div>
+        </v-flex>
+        <v-flex xs-12 v-else>
+          <div class="chat-partner-msg">
+            {{item.chat_message}}
+          </div>
+        </v-flex>
+      </v-layout>
     </div>
-
     <div class="bottom-line">
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
         <v-layout row>
           <v-flex xs-12>
             <input v-model="userMessage" type="text" class="chat-input" @focus="handleFocus()" >
-
             <div class="overed-rows">
               <v-btn type="button" flat icon color="green lighten-1" @click="handleSendMSG()">
                 <v-icon>send</v-icon>
@@ -78,18 +44,13 @@ import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendMessage, openConversation } from '../../constants'
 import socket from '../../socket'
-import EmojiPicker from 'vue-emoji-picker'
-
+import EmojiComponent from '../components/Emoji'
 export default {
   mixins:[ConvMixin],
   data() {
     return {
-      userMessage: '',
-      search: ''
+      userMessage: ''
     }
-  },
-  components: {
-    EmojiPicker,
   },
   computed: {
     ...mapState([
@@ -109,9 +70,6 @@ export default {
       'GRRemoveFromUnreadConversations',
       'GRSeenOnFocus'
     ]),
-    insert(emoji) {
-      this.userMessage += emoji
-    },
     handleFocus() {
       if (this.GreenChat.unreadConversations.includes(this.GreenChat.conversation_id)) {
         this.GRRemoveFromUnreadConversations(this.GreenChat.conversation_id)
@@ -145,7 +103,8 @@ export default {
     }
   },
   components: {
-    AppComponentLoader: ComponentLoader
+    AppComponentLoader: ComponentLoader,
+    AppEmojiComponent: EmojiComponent
   },
   updated() {
     if (this.$el.querySelector) {

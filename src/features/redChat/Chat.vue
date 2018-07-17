@@ -5,53 +5,21 @@
     <v-subheader class="subheader dark-text">
       Messages
     </v-subheader>
-
-    <emoji-picker @emoji="insert" :search="search">
-        <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events" >
-            <button type="button" style="zoom: 250%; color: red">&#9786</button>
-        </div>
-
-        <div class="emojis-container" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-            <div>
-                <div>
-                    <input type="text" v-model="search">
-                </div>
-                <div>
-                    <div v-for="(emojiGroup, category) in emojis" :key="category">
-                        <div v-if="category == 'People' || category == 'Nature' || category == 'Objects'">
-                          <h5>{{ category }}</h5>
-                          <div>
-                              <span
-                                  v-for="(emoji, emojiName) in emojiGroup"
-                                  :key="emojiName"
-                                  @click="insert(emoji)"
-                                  :title="emojiName"
-                                  style="cursor:pointer"
-                              >{{ emoji }}</span>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </emoji-picker>
-
-
+    <AppEmojiComponent v-model="userMessage" :userMessage="userMessage"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
     <div class="chat-container" id="ablaku">
-        <v-layout row v-for="(item, index) in RedChat.messages" :key="index">
-          <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
-            <div class="chat-my-msg color-red-lighten-background">
-              {{item.chat_message}}
-            </div>
-          </v-flex>
-          <v-flex xs-12 v-else>
-            <div class="chat-partner-msg">
-              {{item.chat_message}}
-            </div>
-          </v-flex>
-        </v-layout>
+      <v-layout row v-for="(item, index) in RedChat.messages" :key="index">
+        <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
+          <div class="chat-my-msg color-red-lighten-background">
+            {{item.chat_message}}
+          </div>
+        </v-flex>
+        <v-flex xs-12 v-else>
+          <div class="chat-partner-msg">
+            {{item.chat_message}}
+          </div>
+        </v-flex>
+      </v-layout>
     </div>
     <div class="bottom-line">
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
@@ -76,18 +44,13 @@ import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendMessage, openConversation } from '../../constants'
 import socket from '../../socket'
-import EmojiPicker from 'vue-emoji-picker'
-
+import EmojiComponent from '../components/Emoji'
 export default {
   mixins:[ConvMixin],
   data() {
     return {
       userMessage: '',
-      search: ''
     }
-  },
-  components: {
-    EmojiPicker,
   },
   computed: {
     ...mapState([
@@ -107,9 +70,6 @@ export default {
       'RDRemoveFromUnreadConversations',
       'RDSeenOnFocus'
     ]),
-    insert(emoji) {
-      this.userMessage += emoji
-    },
     handleSendMSG() {
       const data = {
         conversation_id: this.RedChat.conversation_id,
@@ -144,7 +104,8 @@ export default {
     },
   },
   components: {
-    AppComponentLoader: ComponentLoader
+    AppComponentLoader: ComponentLoader,
+    AppEmojiComponent: EmojiComponent
   },
   updated() {
     if (this.$el.querySelector) {
