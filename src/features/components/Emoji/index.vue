@@ -31,20 +31,36 @@
 
 <script>
 import EmojiPicker from 'vue-emoji-picker'
+import Emojis from './emojis'
 export default {
   props: ['userMessage'],
   data() {
     return {
-      search: ''
+      search: 's'
     }
   },
   methods: {
     insert(emoji) {
-      this.$emit('input', this.userMessage + emoji);
+      this.$emit('input', this.userMessage + emoji)
+    },
+    replaceEmoji(str) {
+      this.$emit('input', str)
     }
   },
   components: {
     EmojiPicker,
   },
+  watch: {
+    userMessage(newval, oldval) {
+      let keys = Object.keys(Emojis)
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        if (newval.includes(key)) {
+          const newUserMessage = newval.replace(key, Emojis[key])
+          this.replaceEmoji(newUserMessage)
+        }
+      }
+    }
+  }
 }
 </script>
