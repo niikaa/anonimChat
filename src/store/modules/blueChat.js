@@ -47,6 +47,9 @@ const mutations =  {
     state.messages = []
     state.messages = state.messages.concat(payload)
   },
+  BLStickConversationMessages(state, payload){
+    state.messages = payload.concat(state.messages)
+  },
   BLClearMessages(state, payload) {
     state.messages = []
   },
@@ -97,7 +100,7 @@ const mutations =  {
   BLSeenOnFocus(state, payload) {
     for(let i = 0; i < state.conversations.length; i++){
       if(state.conversations[i]._id == payload){
-        state.conversations[i].messages[state.conversations[i].messages.length - 1].seen = true
+        state.conversations[i].last_message.seen = true
         break
       }
     }
@@ -134,6 +137,9 @@ const actions = {
   },
   BLAddConversationMessages:({commit}, payload) => {
     commit('BLAddConversationMessages', payload)
+  },
+  BLStickConversationMessages:({commit}, payload) => {
+    commit('BLStickConversationMessages', payload)
   },
   BLConversationsScrollDown:({commit}, payload) => {
     commit('BLConversationsScrollDown', payload)

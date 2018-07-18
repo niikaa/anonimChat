@@ -7,7 +7,7 @@
         <img v-else :src="'https://graph.facebook.com/' + data.target_id + '/picture'"/>
       </v-list-tile-avatar>
       <v-list-tile-content>
-        <v-list-tile-title class="dark-text">{{ data.messages[data.messages.length - 1].chat_message }}</v-list-tile-title>
+        <v-list-tile-title class="dark-text">{{ data.last_message.chat_message }}</v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
     <div class="conversation_date">Date: {{data.date}}</div>
@@ -17,7 +17,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { openConversation, openBlueConversation } from '../../../constants'
+import { openConversation, openBlueConversation, getConversation } from '../../../constants'
 export default {
   props: ['data'],
   data() {
@@ -39,7 +39,7 @@ export default {
       'RedChat'
     ]),
     seen(){
-      return this.data.messages[this.data.messages.length - 1].seen
+      return this.data.last_message.seen
     }
   },
 
@@ -51,22 +51,18 @@ export default {
     ]),
     handleClick(){
         this.RDSetConversation(this.data._id)
-        this.RDAddConversationMessages(this.data.messages)
-        if (this.RedChat.unreadConversations.includes(this.data._id)) {
-            this.RDRemoveFromUnreadConversations(this.data._id)
-        }
-        if(this.Authentication.userResponse.id != this.data.messages[this.data.messages.length - 1].sender_id){
+        if(this.Authentication.userResponse.id != this.data.last_message.sender_id){
             this.$http.post(openConversation, {conversation_id: this.data._id, }).then(response => {
             if (response.body.status === 200) {
-                this.data.messages[this.data.messages.length - 1].seen = true;
+                this.data.last_message.seen = true;
             }
             }, () => {
             })
         }
     },
     processSeen(){
-      if(this.Authentication.userResponse.id == this.data.messages[this.data.messages.length - 1].sender_id){
-        this.data.messages[this.data.messages.length - 1].seen = true;
+      if(this.Authentication.userResponse.id == this.data.last_message.sender_id){
+        this.data.last_message.seen = true;
       }
       if(this.data.initiator_id == this.Authentication.userResponse.id){
         this.iAmInitiator = true

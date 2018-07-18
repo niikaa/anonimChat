@@ -31,7 +31,7 @@ router.post('/add_message', (req, res)=>{
   }
   Conversation.findOneAndUpdate({_id: new mongoose.mongo.ObjectId(conversation_id)}, 
                                 {
-                                  $set: { date: Date.now()},
+                                  $set: { date: Date.now(), last_message: newMsg },
                                   $push: { messages: newMsg }
                                 }, (err, doc) => {
     if (err) {

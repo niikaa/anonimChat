@@ -47,6 +47,9 @@ const mutations =  {
     state.messages = []
     state.messages = state.messages.concat(payload)
   },
+  GRStickConversationMessages(state, payload){
+    state.messages = payload.concat(state.messages)
+  },
   GRClearMessages(state, payload) {
     state.messages = []
   },
@@ -97,7 +100,7 @@ const mutations =  {
   GRSeenOnFocus(state, payload) {
     for(let i = 0; i < state.conversations.length; i++){
       if(state.conversations[i]._id == payload){
-        state.conversations[i].messages[state.conversations[i].messages.length - 1].seen = true
+        state.conversations[i].last_message.seen = true
         break
       }
     }
@@ -134,6 +137,9 @@ const actions = {
   },
   GRAddConversationMessages:({commit}, payload) => {
     commit('GRAddConversationMessages', payload)
+  },
+  GRStickConversationMessages:({commit}, payload) => {
+    commit('GRStickConversationMessages', payload)
   },
   GRConversationsScrollDown:({commit}, payload) => {
     commit('GRConversationsScrollDown', payload)
