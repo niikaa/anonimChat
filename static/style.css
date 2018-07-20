@@ -254,7 +254,7 @@ h4 {
 }
 
 .ann-card {
-  height: calc(50vh - 28px);
+  height: calc(100vh - 28px);
   position: relative;
   cursor: pointer;
 }

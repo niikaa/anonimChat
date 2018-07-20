@@ -73,27 +73,6 @@
           </div>
         </div>
       </v-flex>
-
-      <v-flex xs12 md3 class="ann-card yellow-card">
-        <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Comming soon</h3>
-        </div>
-      </v-flex>
-      <v-flex xs12 md3 class="ann-card orange-card">
-        <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Comming soon</h3>
-        </div>
-      </v-flex>
-      <v-flex xs12 md3 class="ann-card violet-card">
-        <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Comming soon</h3>
-        </div>
-      </v-flex>
-      <v-flex xs12 md3 class="ann-card gray-card">
-        <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Comming soon</h3>
-        </div>
-      </v-flex>
     </v-layout>
   </div>
 </template>
