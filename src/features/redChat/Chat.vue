@@ -56,13 +56,14 @@ import ComponentLoader from '../components/Loaders/ComponentLoader'
 import { sendMessage, openConversation, getMessages, getConversation } from '../../constants'
 import socket from '../../socket'
 import InfiniteLoading from 'vue-infinite-loading';
+import EmojiComponent from '../components/Emoji'
 
 export default {
   mixins:[ConvMixin],
   data() {
     return {
       userMessage: '',
-      notificationSound: true
+      notificationSound: true,
       search: '',
       skip: 0,
       limit: 50,
@@ -163,7 +164,7 @@ export default {
   },
   components: {
     AppComponentLoader: ComponentLoader,
-    AppEmojiComponent: EmojiComponent
+    AppEmojiComponent: EmojiComponent,
     InfiniteLoading,
   },
   updated() {
