@@ -1,6 +1,6 @@
 <template>
   <v-toolbar fixed dark :color="tColor">
-    <v-toolbar-title class="white--text">Chat with Facebook friends anonymously</v-toolbar-title>
+    <v-toolbar-title class="white--text">Chat With Facebook Friends Anonymously</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToHome">
       <v-badge right color="green lighten-1">

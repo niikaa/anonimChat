@@ -3,7 +3,7 @@
     <v-layout row wrap class="menu-pad">
       <v-flex xs12 md4 class="ann-card green-card">
         <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Green chat</h3>
+          <h3 class="ann-h3">Green Chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="red" class="separated-badge">
               <span slot="badge">{{GreenChat.unreadConversations.length}}</span>
@@ -27,7 +27,7 @@
 
       <v-flex xs12 md4 class="ann-card blue-card">
         <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Blue chat</h3>
+          <h3 class="ann-h3">Blue Chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="red" class="separated-badge">
               <span slot="badge">{{BlueChat.unreadConversations.length}}</span>
@@ -51,7 +51,7 @@
 
       <v-flex xs12 md4 class="ann-card red-card">
         <div class="text-xs-center verticaly-cnt">
-          <h3 class="ann-h3">Red chat</h3>
+          <h3 class="ann-h3">Red Chat</h3>
           <div class="text-xs-center ann-separated-line">
             <v-badge overlap color="blue lighten-2" class="separated-badge">
               <span slot="badge">{{RedChat.unreadConversations.length}}</span>
