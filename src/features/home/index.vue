@@ -19,7 +19,7 @@
           </div>
           <div class="text-xs-center ann-separated-line">
             <v-btn @click="redirectToGreenChat()" round large color="grey lighten-4">
-              <span class="text-green"> View </span>
+              <span class="text-green"> Enter </span>
             </v-btn>
           </div>
         </div>
@@ -43,7 +43,7 @@
           </div>
           <div class="text-xs-center ann-separated-line">
             <v-btn @click="redirectToBlueChat()" round large color="grey lighten-4">
-              <span class="text-blue"> View </span>
+              <span class="text-blue"> Enter </span>
             </v-btn>
           </div>
         </div>
@@ -68,7 +68,7 @@
 
           <div class="text-xs-center ann-separated-line">
             <v-btn @click="redirectToRedChat()" round large color="grey lighten-4">
-              <span class="text-red"> View </span>
+              <span class="text-red"> Enter </span>
             </v-btn>
           </div>
         </div>
