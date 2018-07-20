@@ -3,18 +3,21 @@
     <AppToolbar></AppToolbar>
     <AppFullLoader></AppFullLoader>
     <router-view/>
+    <AppNotifications></AppNotifications>
   </div>
 </template>
 
 <script>
 import FullLoader from './features/components/Loaders/FullLoader'
 import Toolbar from './features/components/Toolbar'
+import Notifications from './features/components/notifications'
 
 export default {
   name: 'App',
   components: {
     AppFullLoader: FullLoader,
     AppToolbar: Toolbar,
+    AppNotifications: Notifications,
   }
 }
 </script>

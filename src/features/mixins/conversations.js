@@ -51,7 +51,7 @@ export default {
             clearInterval(timer);
             self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
               if (response.body.status === 200) {
-                self.GRAddConversation(response.body.data[0])
+                self.GRAddConversation(response.body.data)
               } else {
   
               }
@@ -89,7 +89,7 @@ export default {
             clearInterval(timer);
             self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
               if (response.body.status === 200) {
-                self.BLAddConversation(response.body.data[0])
+                self.BLAddConversation(response.body.data)
               } else {
   
               }
@@ -127,7 +127,7 @@ export default {
             clearInterval(timer);
             self.$http.get(getConversation, {params: {conversation_id: id}}).then(response => {
               if (response.body.status === 200) {
-                self.RDAddConversation(response.body.data[0])
+                self.RDAddConversation(response.body.data)
               } else {
   
               }

@@ -16,7 +16,7 @@ import ComponentLoader from '../components/Loaders/ComponentLoader'
 import ConversationsList from './ConversationsList'
 import FriendCard from './FriendCard'
 import Chat from './Chat'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -24,6 +24,18 @@ export default {
       'RedChat'
     ])
   },
+  methods: {
+    ...mapActions([
+      'RDSetConversation',
+      'RDClearMessages'
+    ]),
+  },
+  // created(){
+  //   if(this.$route.query.conversation){
+  //     this.RDClearMessages() 
+  //     this.RDSetConversation(this.$route.query.conversation)
+  //   }
+  // },
   components: {
     AppFriendsList: FriendsList,
     AppComponentLoader: ComponentLoader,

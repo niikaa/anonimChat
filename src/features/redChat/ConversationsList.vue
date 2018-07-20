@@ -11,7 +11,7 @@
         <div class="fixed-height-scroll">
           <div v-infinite-scroll="scrollConversations" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
               <template v-for="(item, index) in RedChat.conversations">
-                <AppConversation :key="index" :data="item" :type="'red'"></AppConversation>
+                <AppRedConversation :key="index" :data="item" ></AppRedConversation>
               </template>
           </div>
         </div>
@@ -21,7 +21,7 @@
 
 <script>
 import ConvMixin from '../mixins/conversations'
-import Conversation from '../components/Conversation'
+import RedConversation from '../components/Conversations/redConv.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: {
-    AppConversation: Conversation
+    AppRedConversation: RedConversation
   },
   computed: {
     ...mapState ([

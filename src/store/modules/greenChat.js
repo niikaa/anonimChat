@@ -10,7 +10,8 @@ const state = {
   conversations: [],
   skip: 0,
   limit: 20,
-  messageSocketConnected: false
+  messageSocketConnected: false,
+  unreadConversations: []
 }
 
 const mutations =  {
@@ -46,6 +47,9 @@ const mutations =  {
     state.messages = []
     state.messages = state.messages.concat(payload)
   },
+  GRStickConversationMessages(state, payload){
+    state.messages = payload.concat(state.messages)
+  },
   GRClearMessages(state, payload) {
     state.messages = []
   },
@@ -80,7 +84,27 @@ const mutations =  {
   },
   GRSetLoading(state, payload) {
     state.loading = payload
-  }
+  },
+  GRSetUnreadConversations(state, payload) {
+    state.unreadConversations = payload
+  },
+  GRAddIntoUnreadConversations(state, payload) {
+    state.unreadConversations.push(payload)
+  },
+  GRRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
+    }
+  },
+  GRSeenOnFocus(state, payload) {
+    for(let i = 0; i < state.conversations.length; i++){
+      if(state.conversations[i]._id == payload){
+        state.conversations[i].last_message.seen = true
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -114,6 +138,9 @@ const actions = {
   GRAddConversationMessages:({commit}, payload) => {
     commit('GRAddConversationMessages', payload)
   },
+  GRStickConversationMessages:({commit}, payload) => {
+    commit('GRStickConversationMessages', payload)
+  },
   GRConversationsScrollDown:({commit}, payload) => {
     commit('GRConversationsScrollDown', payload)
   },
@@ -134,6 +161,18 @@ const actions = {
   },
   GRSetLoading:({commit}, payload) => {
     commit('GRSetLoading', payload)
+  },
+  GRSetUnreadConversations:({commit}, payload) => {
+    commit('GRSetUnreadConversations', payload)
+  },
+  GRAddIntoUnreadConversations:({commit}, payload) => {
+    commit('GRAddIntoUnreadConversations', payload)
+  },
+  GRRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('GRRemoveFromUnreadConversations', payload)
+  },
+  GRSeenOnFocus:({commit}, payload) => {
+    commit('GRSeenOnFocus', payload)
   },
 }
 

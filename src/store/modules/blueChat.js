@@ -10,7 +10,8 @@ const state = {
   conversations: [],
   skip: 0,
   limit: 20,
-  messageSocketConnected: false
+  messageSocketConnected: false,
+  unreadConversations: []
 }
 
 const mutations =  {
@@ -46,6 +47,9 @@ const mutations =  {
     state.messages = []
     state.messages = state.messages.concat(payload)
   },
+  BLStickConversationMessages(state, payload){
+    state.messages = payload.concat(state.messages)
+  },
   BLClearMessages(state, payload) {
     state.messages = []
   },
@@ -80,7 +84,27 @@ const mutations =  {
   },
   BLSetLoading(state, payload) {
     state.loading = payload
-  }
+  },
+  BLSetUnreadConversations(state, payload) {
+    state.unreadConversations = payload
+  },
+  BLAddIntoUnreadConversations(state, payload) {
+    state.unreadConversations.push(payload)
+  },
+  BLRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
+    }
+  },
+  BLSeenOnFocus(state, payload) {
+    for(let i = 0; i < state.conversations.length; i++){
+      if(state.conversations[i]._id == payload){
+        state.conversations[i].last_message.seen = true
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -114,6 +138,9 @@ const actions = {
   BLAddConversationMessages:({commit}, payload) => {
     commit('BLAddConversationMessages', payload)
   },
+  BLStickConversationMessages:({commit}, payload) => {
+    commit('BLStickConversationMessages', payload)
+  },
   BLConversationsScrollDown:({commit}, payload) => {
     commit('BLConversationsScrollDown', payload)
   },
@@ -135,6 +162,18 @@ const actions = {
   BLSetLoading:({commit}, payload) => {
     commit('BLSetLoading', payload)
   },
+  BLSetUnreadConversations:({commit}, payload) => {
+    commit('BLSetUnreadConversations', payload)
+  },
+  BLAddIntoUnreadConversations:({commit}, payload) => {
+    commit('BLAddIntoUnreadConversations', payload)
+  },
+  BLRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('BLRemoveFromUnreadConversations', payload)
+  },
+  BLSeenOnFocus:({commit}, payload) => {
+    commit('BLSeenOnFocus', payload)
+  }
 }
 
 export default {

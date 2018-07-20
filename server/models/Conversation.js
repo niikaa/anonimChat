@@ -24,6 +24,20 @@ const Conversation = new Schema({
     type : Date,
     default: Date.now()
   },
+  last_message: {
+    sender_id: {
+      type: String
+    },
+    chat_message: {
+      type: String
+    },
+    date: {
+      type: Date
+    },
+    seen: {
+      type: Boolean
+    }
+  },
   messages: [{
     sender_id: {
       type: String

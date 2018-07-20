@@ -10,7 +10,8 @@ const state = {
   conversations: [],
   skip: 0,
   limit: 20,
-  messageSocketConnected: false
+  messageSocketConnected: false,
+  unreadConversations: []
 }
 
 const mutations =  {
@@ -46,6 +47,9 @@ const mutations =  {
     state.messages = []
     state.messages = state.messages.concat(payload)
   },
+  RDStickConversationMessages(state, payload){
+    state.messages = payload.concat(state.messages)
+  },
   RDClearMessages(state, payload) {
     state.messages = []
   },
@@ -80,7 +84,27 @@ const mutations =  {
   },
   RDSetLoading(state, payload) {
     state.loading = payload
-  }
+  },
+  RDSetUnreadConversations(state, payload) {
+    state.unreadConversations = payload
+  },
+  RDAddIntoUnreadConversations(state, payload) {
+    state.unreadConversations.push(payload)
+  },
+  RDRemoveFromUnreadConversations(state, payload) {
+    const index = state.unreadConversations.indexOf(payload);
+    if (index > -1) {
+      state.unreadConversations.splice(index, 1);
+    }
+  },
+  RDSeenOnFocus(state, payload) {
+    for(let i = 0; i < state.conversations.length; i++){
+      if(state.conversations[i]._id == payload){
+        state.conversations[i].last_message.seen = true
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -114,6 +138,9 @@ const actions = {
   RDAddConversationMessages:({commit}, payload) => {
     commit('RDAddConversationMessages', payload)
   },
+  RDStickConversationMessages:({commit}, payload) => {
+    commit('RDStickConversationMessages', payload)
+  },
   RDConversationsScrollDown:({commit}, payload) => {
     commit('RDConversationsScrollDown', payload)
   },
@@ -134,6 +161,18 @@ const actions = {
   },
   RDSetLoading:({commit}, payload) => {
     commit('RDSetLoading', payload)
+  },
+  RDSetUnreadConversations:({commit}, payload) => {
+    commit('RDSetUnreadConversations', payload)
+  },
+  RDAddIntoUnreadConversations:({commit}, payload) => {
+    commit('RDAddIntoUnreadConversations', payload)
+  },
+  RDRemoveFromUnreadConversations:({commit}, payload) => {
+    commit('RDRemoveFromUnreadConversations', payload)
+  },
+  RDSeenOnFocus:({commit}, payload) => {
+    commit('RDSeenOnFocus', payload)
   },
 }
 

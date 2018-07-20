@@ -6,8 +6,8 @@
         <v-divider class="light-background "></v-divider>
         <AppSpinner></AppSpinner>
         <div class="fixed-height-scroll" v-if="Authentication.friends_obj">
-          <template v-for="(item, index) in Authentication.friends_obj">
-            <AppFriend :type="'blue'" :data="item" :key="index"></AppFriend>
+          <template v-for="(item, index) in arrayShuffle(Authentication.friends_obj)">
+            <AppFriend :data="item" :key="index"></AppFriend>
           </template>
         </div>
       </v-list>
@@ -15,13 +15,14 @@
 </template>
 
 <script>
-import Friend from '../components/Friend'
+import BlueFriend from '../components/Friend/BlueFriend'
 import { mapState, mapActions } from 'vuex'
 import Spinner from './Spinner'
-
+import SharedMixin from '../mixins/shared'
 export default {
+  mixins: [SharedMixin],
   components: {
-    AppFriend: Friend,
+    AppFriend: BlueFriend,
     AppSpinner: Spinner,
   },
   computed: {
