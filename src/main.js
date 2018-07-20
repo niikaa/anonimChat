@@ -6,7 +6,9 @@ import VueResource from 'vue-resource'
 import { store } from './store'
 import infiniteScroll from 'vue-infinite-scroll';
 import { EmojiPickerPlugin } from 'vue-emoji-picker'
+import { directive as onClickOutside } from 'vue-on-click-outside'
 
+Vue.directive('on-click-outside', onClickOutside)
 Vue.use(EmojiPickerPlugin)
 Vue.use(VueResource)
 

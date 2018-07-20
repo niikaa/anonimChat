@@ -20,7 +20,8 @@ export default {
       'Authentication',
       'BlueChat',
       'RedChat',
-      'GreenChat'
+      'GreenChat',
+      'Data'
     ]),
     userId() {
       return this.Authentication.userResponse
@@ -51,7 +52,9 @@ export default {
   },
   methods: {
     createNotification(id, message, sender_id, color) {
-      this.$refs.notificaionSound.play()
+      if (this.Data.notSound) {
+        this.$refs.notificaionSound.play()
+      }
       this.renderedNotifications.push(id)
       const ComponentClass = Vue.extend(GreenNotifications)
       var instance = new ComponentClass({

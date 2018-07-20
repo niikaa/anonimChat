@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import { getActiveFriends } from '../../constants'
-import router from '../../router'
 
 const state = {
-  active_friends: []
+  active_friends: [],
+  notSound: true
 }
 
 const mutations = {
-  setActiveFriends(state, activeFriends){
+  setActiveFriends(state, activeFriends) {
     state.active_friends = activeFriends;
+  },
+  changeNotSound(state, payload) {
+    state.notSound = payload
   }
 }
 
@@ -24,6 +27,9 @@ const actions = {
       commit('setActiveFriends', [])
     })
   },
+  changeNotSound:({commit}, payload) => {
+    commit('changeNotSound', payload)
+  }
 }
 
 export default {

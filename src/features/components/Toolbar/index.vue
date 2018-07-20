@@ -4,7 +4,7 @@
     <v-spacer></v-spacer>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToHome">
       <v-badge right color="green lighten-1">
-         <v-icon>list_alt</v-icon>
+         <v-icon>public</v-icon>
       </v-badge>
     </v-btn>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToGreenChat">
@@ -25,6 +25,7 @@
         <v-icon>chat</v-icon>
       </v-badge>
     </v-btn>
+    <AppSettings></AppSettings>
     <v-btn v-if="!Authentication.isLoggedIn" icon @click="loginWithFacebook()">
       <v-icon>https</v-icon>
     </v-btn>
@@ -39,12 +40,16 @@ import AuthMixin from '../../mixins/authenticate'
 import { mapState, mapActions } from 'vuex'
 import {getNotifications} from '../../../constants'
 import socket from '../../../socket'
+import Settings from './Settings'
 export default {
   mixins:[AuthMixin],
   data() {
     return {
       tColor: 'grey lighten-1',
     }
+  },
+  components: {
+    AppSettings: Settings
   },
   computed: {
     ...mapState([
