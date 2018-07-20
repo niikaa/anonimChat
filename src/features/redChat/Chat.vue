@@ -13,19 +13,24 @@
     </v-subheader>
     <AppEmojiComponent v-model="userMessage" :userMessage="userMessage" color="#ef5350"></AppEmojiComponent>
     <v-divider class="divider light-background"></v-divider>
-    <div class="chat-container" id="ablaku">
-      <v-layout row v-for="(item, index) in RedChat.messages" :key="index">
-        <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
-          <div class="chat-my-msg color-red-lighten-background">
-            {{item.chat_message}}
-          </div>
-        </v-flex>
-        <v-flex xs-12 v-else>
-          <div class="chat-partner-msg">
-            {{item.chat_message}}
-          </div>
-        </v-flex>
-      </v-layout>
+    <div class="chat-container" id="ablaku" ref="scrollWrapperRed">
+      <infinite-loading @infinite="doScroll" direction="top" ref="infiniteLoading" :distance="0" >
+          <span slot="no-more">
+            Start of conversation
+          </span>
+        </infinite-loading>
+        <v-layout row v-for="(item, index) in RedChat.messages" :key="index">
+          <v-flex xs-12 v-if="item.sender_id === Authentication.userResponse.id">
+            <div class="chat-my-msg color-red-lighten-background">
+              {{item.chat_message}}
+            </div>
+          </v-flex>
+          <v-flex xs-12 v-else>
+            <div class="chat-partner-msg">
+              {{item.chat_message}}
+            </div>
+          </v-flex>
+        </v-layout>
     </div>
     <div class="bottom-line">
       <form v-on:submit.prevent @keyup.enter.prevent="handleSendMSG()">
@@ -48,15 +53,21 @@
 import { mapState, mapActions } from 'vuex'
 import ConvMixin from '../mixins/conversations'
 import ComponentLoader from '../components/Loaders/ComponentLoader'
-import { sendMessage, openConversation } from '../../constants'
+import { sendMessage, openConversation, getMessages, getConversation } from '../../constants'
 import socket from '../../socket'
-import EmojiComponent from '../components/Emoji'
+import InfiniteLoading from 'vue-infinite-loading';
+
 export default {
   mixins:[ConvMixin],
   data() {
     return {
       userMessage: '',
       notificationSound: true
+      search: '',
+      skip: 0,
+      limit: 50,
+      notScroll: false,
+      height: 0
     }
   },
   computed: {
@@ -66,6 +77,9 @@ export default {
     ]),
     isFetching() {
       return this.RedChat.conversation_isFetching
+    },
+    conversationId() {
+      return this.RedChat.conversation_id
     }
   },
   methods: {
@@ -75,7 +89,9 @@ export default {
       'RDConnectMessageSocket',
       'RDRemoveActiveConversation',
       'RDRemoveFromUnreadConversations',
-      'RDSeenOnFocus'
+      'RDSeenOnFocus',
+      'RDStickConversationMessages',
+      'RDClearMessages'
     ]),
     changeNotificationSound() {
       this.notificationSound = !this.notificationSound
@@ -112,15 +128,49 @@ export default {
         }
       }
     },
+    getMessagesPagination(callback){
+      if(this.RedChat.conversation_id){
+        this.$http.get(getMessages,{params: {conversation_id: this.RedChat.conversation_id, skip: this.skip, limit: this.limit }}).then(response => {
+            if (response.body.status === 200) {
+              if(response.data.data.messages){
+                this.RDStickConversationMessages(response.data.data.messages)
+                if(callback) callback(false, true);
+              }
+              else if(callback) callback(true, false);
+              if (this.RedChat.unreadConversations.includes(this.RedChat.conversation_id)) {
+                this.RDRemoveFromUnreadConversations(this.RedChat.conversation_id)
+              }
+            }
+        },()=>{
+        })
+      }
+    },
+    doScroll($state){
+      this.notScroll = true;
+      this.skip += this.limit;
+      var self = this
+      this.getMessagesPagination(function(stop, go) {
+        if(go){
+          self.height = self.$refs.scrollWrapperRed.scrollHeight
+          $state.loaded()
+        }
+        else if (stop){
+          $state.loaded()
+          $state.complete()
+        }
+      });
+    }
   },
   components: {
     AppComponentLoader: ComponentLoader,
     AppEmojiComponent: EmojiComponent
+    InfiniteLoading,
   },
   updated() {
-    if (this.$el.querySelector) {
+    if (this.$el.querySelector && !this.notScroll) {
       this.$el.querySelector(".chat-container").scrollTop = this.$el.querySelector(".chat-container").scrollHeight;
     }
+    this.notScroll = false;
   },
   beforeDestroy(){
     this.RDRemoveActiveConversation();
@@ -129,6 +179,7 @@ export default {
   mounted () {
     if(!this.RedChat.messageSocketConnected){
       socket.on('RED_CHAT_MSG_RECEIVE', (data) => {
+        this.skip++;
         this.manageNewConversationForRed(data.conversation_id)
         if(this.RedChat.conversation_id == data.conversation_id) {
           if (this.Authentication.userResponse.id !== data.sender_id && this.notificationSound) {
@@ -148,6 +199,19 @@ export default {
       setTimeout(() => {
         this.RDChangeChatFetchStatus(false)
       }, 300)
+    },
+    conversationId(oldVal, newVal) {
+      this.skip = 0;
+      this.limit = 50;
+      if(this.$refs.infiniteLoading)
+      this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+
+      this.RDClearMessages()
+      this.getMessagesPagination()
+    },
+    height: function(newVal,oldVal){
+      var diff = newVal - oldVal;
+      this.$refs.scrollWrapperRed.scrollTop = diff + 60
     }
   }
 }
