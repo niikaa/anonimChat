@@ -4,7 +4,7 @@
       <v-layout row wrap class="main-pad">
         <v-flex xs12 md6>
           <h1 class="ann-h1">
-            Opinions do matter, use them to build yourself!
+            Chat with your Facebook friends anonymously.
           </h1>
           <span class="ann-under-h1">
             Are your friends really on your side? Get honest feedbacks and know what you don’t!

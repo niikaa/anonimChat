@@ -208,7 +208,7 @@ h4 {
 .home-pg {
   height: 100vh;
   background: linear-gradient(#3498db69, #3498db69, #2980b9),
-  url("https://wallpaperscraft.com/image/laptop_apple_canon_table_73452_1920x1080.jpg") no-repeat center;
+  url("/./static/images/img.jpg") no-repeat center;
 }
 
 .auth-card {
