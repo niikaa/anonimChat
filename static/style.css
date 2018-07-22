@@ -115,10 +115,9 @@ h4 {
 
 .ann-h1 {
   color: #ecf0f1;
-  font-size: 68px;
+  font-size: 51px;
   letter-spacing: 2px;
   margin-bottom: 50px;
-  margin-top: 10px;
 }
 .ann-under-h1 {
   color: #ecf0f1;
@@ -136,24 +135,6 @@ h4 {
   bottom: 14px;
   right: 270px;
   z-index: 99999;
-}
-
-@media only screen and (max-width: 1264px) {
-  .ann-h1 {
-    font-size: 51px;
-    letter-spacing: 1px;
-    margin-bottom: 45px;
-  }
-  .ann-under-h1 {
-    font-size: 22px;
-    letter-spacing: 0.1px;
-  }
-  .emoji-invoker {
-    position: fixed;
-    bottom: 14px;
-    right: 270px;
-    z-index: 99999;
-  }
 }
 
 .ann-h4 {
@@ -224,8 +205,8 @@ h4 {
       height: auto;
       margin-left: 100px;
       background: #ecf0f1 !important;
-      padding-top: 50px;
-      padding-bottom: 50px
+      padding-top:75px;
+      padding-bottom:75px
   }
   .emoji-invoker {
     position: fixed;
@@ -1138,4 +1119,45 @@ h4 {
   .v-divider {
     height: 1px !important;
     border: none !important;
+  }
+  .welcome-cont {
+    padding-top: 56px;
+    height: calc(100vh);
+    width: 100%;
+    overflow: auto;
+    position: relative;
+  }
+  .wl-ul {
+    list-style: none;
+    padding: 0px;
+  }
+  .wl-li {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  @media only screen and (max-width: 1264px) {
+    .ann-h1 {
+      font-size: 40px;
+      letter-spacing: 1px;
+      margin-bottom: 45px;
+    }
+    .wl-li {
+      font-size: 18px;
+    }
+    .ann-under-h1 {
+      font-size: 22px;
+      letter-spacing: 0.1px;
+    }
+    .emoji-invoker {
+      position: fixed;
+      bottom: 14px;
+      right: 270px;
+      z-index: 99999;
+    }
+  }
+
+  @media only screen and (max-height: 700px) {
+    .main-pad {
+      padding-top: 90px;
+    }
   }
