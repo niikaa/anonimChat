@@ -263,7 +263,7 @@ h4 {
 }
 .red-card:hover {
   background: linear-gradient(#e74c3cb3, #e74c3cb3, #e74c3cb3),
-  url("http://1103027598.rsc.cdn77.org/wp-content/uploads/2016/02/apple-products-1.jpg")
+  url("/./static/images/red.jpg")
   no-repeat center;
 }
 .text-red {
@@ -274,7 +274,7 @@ h4 {
 }
 .blue-card:hover {
   background: linear-gradient(#3498dbb3, #3498dbb3, #3498dbb3),
-  url("https://wallpaperscraft.com/image/laptop_apple_canon_table_73452_1920x1080.jpg")
+  url("/./static/images/blue.jpg")
   no-repeat center;
 }
 .text-blue {
@@ -285,7 +285,7 @@ h4 {
 }
 .green-card:hover {
   background: linear-gradient(#1abc9cb3, #1abc9cb3, #1abc9cb3),
-  url("http://www.hdnicewallpapers.com/Walls/Big/Computers/Laptop_on_Desk_HD_Wallpaper.jpg")
+  url("/./static/images/green.jpg")
   no-repeat center;
 }
 .text-green {
