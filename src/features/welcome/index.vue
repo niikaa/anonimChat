@@ -7,7 +7,12 @@
             Chat with your Facebook friends anonymously.
           </h1>
           <span class="ann-under-h1">
-            Are your friends really on your side? Get honest feedbacks and know what you don’t!
+            <ul>
+<li>Message your friend so that you know about him/her but he/she can't track you down</li>
+<li>Message your friend so that you don't know about him/her but she/he knows about you</li>
+<li>Message your friend so that you don't know about him/her and she/he doesn't know about you too</li>
+
+            </ul>
           </span>
         </v-flex>
         <v-flex xs12 md6>
