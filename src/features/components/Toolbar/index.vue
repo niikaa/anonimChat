@@ -1,6 +1,6 @@
 <template>
   <v-toolbar fixed dark :color="tColor">
-    <v-toolbar-title class="white--text">Chat With Facebook Friends Anonymously</v-toolbar-title>
+    <v-toolbar-title class="white--text">Chat with facebook friends anonymously!</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToHome">
       <v-badge right color="green lighten-1">
@@ -10,19 +10,22 @@
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToGreenChat">
       <v-badge right color="green lighten-1">
         <span v-if="GreenChat.unreadConversations.length > 0" slot="badge">{{GreenChat.unreadConversations.length }}</span>
-        <v-icon>chat_bubble</v-icon>
+        <v-icon @mouseover="greenText=true" @mouseleave="greenText=false">chat_bubble</v-icon>
+        <div v-show="greenText">Green Chat</div>
       </v-badge>
     </v-btn>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToBlueChat">
       <v-badge right color="blue lighten-1">
         <span v-if="BlueChat.unreadConversations.length > 0" slot="badge">{{BlueChat.unreadConversations.length }}</span>
-        <v-icon>chat_bubble_outline</v-icon>
+        <v-icon @mouseover="blueText=true" @mouseleave="blueText=false" >chat_bubble_outline</v-icon>
+        <div v-show="blueText">Blue Chat</div>
       </v-badge>
     </v-btn>
     <v-btn v-if="Authentication.isLoggedIn" icon @click="redirectToRedChat">
       <v-badge right color="red lighten-1">
         <span v-if="RedChat.unreadConversations.length > 0" slot="badge">{{RedChat.unreadConversations.length }}</span>
-        <v-icon>chat</v-icon>
+        <v-icon @mouseover="redText=true" @mouseleave="redText=false">chat</v-icon>
+        <div v-show="redText">Red Chat</div>
       </v-badge>
     </v-btn>
     <AppSettings></AppSettings>
@@ -46,6 +49,10 @@ export default {
   data() {
     return {
       tColor: 'grey lighten-1',
+      greenText:false,
+      blueText:false,
+      redText:false,
+      homeText:false,
     }
   },
   components: {
